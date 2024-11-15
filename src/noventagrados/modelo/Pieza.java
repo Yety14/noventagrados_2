@@ -34,7 +34,9 @@ public class Pieza {
 		this.tipoPieza = tipoPieza;
 
 	}
-
+	public String aTexto() {
+		return toString();
+	}
 	/**
 	 * Crea y devuelve una copia profunda de la pieza.
 	 *

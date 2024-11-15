@@ -6,6 +6,9 @@ import noventagrados.util.Color;
 import noventagrados.util.Coordenada;
 import noventagrados.util.TipoPieza;
 import noventagrados.modelo.Jugada;
+
+import java.util.Objects;
+
 import noventagrados.modelo.Celda;
 import noventagrados.util.Sentido;
 
@@ -53,6 +56,10 @@ public class Arbitro {
 	 */
 	public void cambiarTurno() {
 		turno = turno.consultarContrario();
+	}
+	
+	public Arbitro clonar() {
+		return null;
 	}
 
 	/**
@@ -285,6 +292,25 @@ public class Arbitro {
 		TableroConsultor tableroCons = new TableroConsultor(tablero);
 		return !tableroCons.hayReina(Color.BLANCO) || !tableroCons.hayReina(Color.NEGRO)
 				|| tableroCons.estaReinaEnElCentro(Color.BLANCO) || tableroCons.estaReinaEnElCentro(Color.NEGRO);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Arbitro other = (Arbitro) obj;
+		return Objects.equals(cajaBlanca, other.cajaBlanca) && Objects.equals(cajaNegra, other.cajaNegra)
+				&& numeroJugadas == other.numeroJugadas && Objects.equals(tablero, other.tablero)
+				&& turno == other.turno;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cajaBlanca, cajaNegra, numeroJugadas, tablero, turno);
 	}
 
 	/**

@@ -41,23 +41,55 @@ public class Tablero {
 			}
 		}
 	}
+	
 
 	/**
-	 * Devuelve el número de filas del tablero.
+	 * Genera una representación textual del tablero.
 	 * 
-	 * @return el número de filas
+	 * @return una cadena que representa el estado actual del tablero
 	 */
-	public int consultarNumeroFilas() {
-		return FILAS;
+	public String aTexto() {
+		StringBuilder sb = new StringBuilder();
+		String tipoPieza;
+		char colorPieza = ' ';
+		sb.append("\n");
+		for (int fila = 0; fila < FILAS; fila++) {
+			sb.append(fila + " ");
+			for (int columna = 0; columna < COLUMNAS; columna++) {
+				Celda celda = celdas[fila][columna];
+				// En vez de mostrar todos los datos correspondientes de la pieza, hay que
+				// mostrar
+				// la concatenación de los chars correspondientes
+				tipoPieza = celda.estaVacia() ? " -- " : " " + celda.consultarPieza().consultarTipoPieza().toChar();
+				colorPieza = celda.estaVacia() ? ' ' : celda.consultarColorDePieza().toChar();
+				sb.append(celda.estaVacia() ? " -- " : tipoPieza + colorPieza + " ");
+			}
+			sb.append("\n");
+			// Imprimir el número de las columnas por debajo de la ultima fila
+			if (fila == FILAS - 1) {
+				for (int i = 0; i < FILAS; i++) {
+					sb.append("   " + i);
+				}
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
 	}
 
+
 	/**
-	 * Devuelve el número de columnas del tablero.
+	 * Crea y devuelve una copia profunda del tablero.
 	 * 
-	 * @return el número de columnas
+	 * @return un nuevo Tablero con el mismo estado que este
 	 */
-	public int consultarNumeroColumnas() {
-		return COLUMNAS;
+	public Tablero clonar() {
+		Tablero clon = new Tablero();
+		for (int fila = 0; fila < FILAS; fila++) {
+			for (int columna = 0; columna < COLUMNAS; columna++) {
+				clon.celdas[fila][columna] = this.celdas[fila][columna].clonar();
+			}
+		}
+		return clon;
 	}
 
 	/**
@@ -71,6 +103,22 @@ public class Tablero {
 			celdas[coordenada.fila()][coordenada.columna()].colocar(pieza);
 		}
 	}
+
+
+	/**
+	 * Consulta la celda en la coordenada especificada.
+	 * 
+	 * @param coordenada la coordenada de la celda a consultar
+	 * @return un clon de la celda en la coordenada especificada, o null si la
+	 *         coordenada es inválida
+	 */
+	public Celda consultarCelda(Coordenada coordenada) {
+		if (estanEnTablero(coordenada)) {
+			return celdas[coordenada.fila()][coordenada.columna()].clonar(); // devuelve un clon en profundidad
+		}
+		return null;
+	}
+
 
 	/**
 	 * Devuelve un array con todas las celdas del tablero.
@@ -88,18 +136,24 @@ public class Tablero {
 		return celdasArray;
 	}
 
+
 	/**
-	 * Consulta la celda en la coordenada especificada.
+	 * Devuelve el número de columnas del tablero.
 	 * 
-	 * @param coordenada la coordenada de la celda a consultar
-	 * @return un clon de la celda en la coordenada especificada, o null si la
-	 *         coordenada es inválida
+	 * @return el número de columnas
 	 */
-	public Celda consultarCelda(Coordenada coordenada) {
-		if (estanEnTablero(coordenada)) {
-			return celdas[coordenada.fila()][coordenada.columna()].clonar(); // devuelve un clon en profundidad
-		}
-		return null;
+	public int consultarNumeroColumnas() {
+		return COLUMNAS;
+	}
+
+
+	/**
+	 * Devuelve el número de filas del tablero.
+	 * 
+	 * @return el número de filas
+	 */
+	public int consultarNumeroFilas() {
+		return FILAS;
 	}
 
 	/**
@@ -135,54 +189,6 @@ public class Tablero {
 	 */
 	Celda obtenerCelda(Coordenada coordenada) {
 		return estanEnTablero(coordenada) ? celdas[coordenada.fila()][coordenada.columna()] : null;
-	}
-
-	/**
-	 * Genera una representación textual del tablero.
-	 * 
-	 * @return una cadena que representa el estado actual del tablero
-	 */
-	public String aTexto() {
-		StringBuilder sb = new StringBuilder();
-		String tipoPieza;
-		char colorPieza = ' ';
-		sb.append("\n");
-		for (int fila = 0; fila < FILAS; fila++) {
-			sb.append(fila + " ");
-			for (int columna = 0; columna < COLUMNAS; columna++) {
-				Celda celda = celdas[fila][columna];
-				// En vez de mostrar todos los datos correspondientes de la pieza, hay que
-				// mostrar
-				// la concatenación de los chars correspondientes
-				tipoPieza = celda.estaVacia() ? " -- " : " " + celda.consultarPieza().consultarTipoPieza().toChar();
-				colorPieza = celda.estaVacia() ? ' ' : celda.consultarColorDePieza().toChar();
-				sb.append(celda.estaVacia() ? " -- " : tipoPieza + colorPieza + " ");
-			}
-			sb.append("\n");
-			// Imprimir el número de las columnas por debajo de la ultima fila
-			if (fila == FILAS - 1) {
-				for (int i = 0; i < FILAS; i++) {
-					sb.append("   " + i);
-				}
-			}
-			sb.append("\n");
-		}
-		return sb.toString();
-	}
-
-	/**
-	 * Crea y devuelve una copia profunda del tablero.
-	 * 
-	 * @return un nuevo Tablero con el mismo estado que este
-	 */
-	public Tablero clonar() {
-		Tablero clon = new Tablero();
-		for (int fila = 0; fila < FILAS; fila++) {
-			for (int columna = 0; columna < COLUMNAS; columna++) {
-				clon.celdas[fila][columna] = this.celdas[fila][columna].clonar();
-			}
-		}
-		return clon;
 	}
 
 	/**
