@@ -69,10 +69,38 @@ public class NoventaGrados {
 	 * 
 	 * @param args argumentos de entrada en línea de comandos
 	 */
-	public static void main(String[] args) {
-		// COMPLETAR POR EL ALUMNADO
-		// REUTILIZAR AQUELLOS MÉTODOS YA PROPORCIONADOS QUE SEAN NECESARIOS
-		// OBLIGATORIO INCLUIR TRATAMIENTO DE EXCEPCIONES ASEGURANDO ROBUSTEZ
+	public static void main(String[] args) {						//Main practica anterior
+		mostrarMensajeBienvenida();
+		inicializarPartida();
+		String jugadaTexto = "";
+				
+		while (!comprobarSalir(jugadaTexto)) {
+			mostrarTablero();
+			jugadaTexto = recogerTextoDeJugadaPorTeclado();
+			
+			if (comprobarSalir(jugadaTexto)) {
+				finalizarPartida();
+			} else {
+				if (comprobarFinalizacionPartida()) {
+					finalizarPartida();
+					mostrarGanador();
+					inicializarPartida();
+					continue;
+				}
+				if (!validarFormato(jugadaTexto)) {
+					mostrarErrorEnFormatoDeEntrada();
+					continue;
+				}
+
+				Jugada jugada = extraerJugada(jugadaTexto);
+				if (!esLegal(jugada)) {
+					mostrarErrorPorMovimientoIlegal(jugadaTexto);
+					continue;
+				}
+				realizarEmpujón(jugada);
+				cambiarTurnoPartida();
+			}
+		}
 	}
 
 	/**
