@@ -2,6 +2,8 @@ package noventagrados.modelo;
 
 import noventagrados.util.Coordenada;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase que representa el tablero del juego. El tablero es una cuadrícula de
@@ -125,15 +127,14 @@ public class Tablero {
 	 * 
 	 * @return un array de Celda con clones de todas las celdas
 	 */
-	public Celda[] consultarCeldas() {
-		Celda[] celdasArray = new Celda[FILAS * COLUMNAS];
-		int indice = 0;
-		for (int fila = 0; fila < FILAS; fila++) {
-			for (int columna = 0; columna < COLUMNAS; columna++) {
-				celdasArray[indice++] = celdas[fila][columna].clonar(); // Clona cada celda antes de añadir
-			}
-		}
-		return celdasArray;
+	public List<Celda> consultarCeldas() {
+	    List<Celda> celdasList = new ArrayList<>(FILAS * COLUMNAS);
+	    for (int fila = 0; fila < FILAS; fila++) {
+	        for (int columna = 0; columna < COLUMNAS; columna++) {
+	            celdasList.add(celdas[fila][columna].clonar()); // Clona cada celda antes de añadir
+	        }
+	    }
+	    return celdasList;
 	}
 
 

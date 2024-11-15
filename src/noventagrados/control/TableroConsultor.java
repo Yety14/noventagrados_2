@@ -17,17 +17,17 @@ import noventagrados.modelo.Pieza;
  * @since 1.0
  */
 
-public class TableroConsultor {
+public class TableroConsultor<T extends Tablero> {
 
 	/** El tablero que este consultor está observando. */
-	private Tablero tablero;
+	private T tablero;
 
 	/**
 	 * Constructor del TableroConsultor.
 	 * 
 	 * @param tablero El tablero a consultar
 	 */
-	public TableroConsultor(Tablero tablero) {
+	public TableroConsultor(T tablero) {
 		this.tablero = tablero;
 	}
 

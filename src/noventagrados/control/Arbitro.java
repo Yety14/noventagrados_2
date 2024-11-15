@@ -6,11 +6,12 @@ import noventagrados.util.Color;
 import noventagrados.util.Coordenada;
 import noventagrados.util.TipoPieza;
 import noventagrados.modelo.Jugada;
-
-import java.util.Objects;
-
 import noventagrados.modelo.Celda;
 import noventagrados.util.Sentido;
+import java.util.List;
+import java.util.Arrays;
+import java.util.Objects;
+
 
 /**
  * El arbitro del juego.
@@ -62,59 +63,64 @@ public class Arbitro {
 		return null;
 	}
 
-	/**
-	 * Coloca las piezas en el tablero en las coordenadas especificadas y establece
-	 * el turno actual.
-	 * 
-	 * @param piezas      Array de piezas a colocar
-	 * @param coordenadas Array de coordenadas donde colocar las piezas
-	 * @param turnoActual Color del turno inicial
-	 */
-	public void colocarPiezas(Pieza[] piezas, Coordenada[] coordenadas, Color turnoActual) {
-		this.turno = turnoActual;
-		for (int i = 0; i < piezas.length; i++) {
-			tablero.colocar(piezas[i], coordenadas[i]);
-		}
-	}
+    /**
+     * Coloca las piezas en el tablero en las coordenadas especificadas y establece
+     * el turno actual.
+     * 
+     * @param piezas      Lista de piezas a colocar
+     * @param coordenadas Lista de coordenadas donde colocar las piezas
+     * @param turnoActual Color del turno inicial
+     */
+    public void colocarPiezas(List<Pieza> piezas, List<Coordenada> coordenadas, Color turnoActual) {
+        this.turno = turnoActual;
+        for (int i = 0; i < piezas.size(); i++) {
+            tablero.colocar(piezas.get(i), coordenadas.get(i));
+        }
+    }
 
 	/**
 	 * Coloca las piezas en la configuración inicial del juego.
 	 */
     public void colocarPiezasConfiguracionInicial() {
-        colocarPiezas(new Pieza[] { 
-                    new Pieza(TipoPieza.REINA, Color.BLANCO),
-                    new Pieza(TipoPieza.REINA, Color.NEGRO),
-                    new Pieza(TipoPieza.PEON, Color.BLANCO), 
-                    new Pieza(TipoPieza.PEON, Color.BLANCO),
-                    new Pieza(TipoPieza.PEON, Color.BLANCO), 
-                    new Pieza(TipoPieza.PEON, Color.BLANCO),
-                    new Pieza(TipoPieza.PEON, Color.BLANCO), 
-                    new Pieza(TipoPieza.PEON, Color.BLANCO),
-                    new Pieza(TipoPieza.PEON, Color.NEGRO), 
-                    new Pieza(TipoPieza.PEON, Color.NEGRO),
-                    new Pieza(TipoPieza.PEON, Color.NEGRO), 
-                    new Pieza(TipoPieza.PEON, Color.NEGRO),
-                    new Pieza(TipoPieza.PEON, Color.NEGRO), 
-                    new Pieza(TipoPieza.PEON, Color.NEGRO), },
-                new Coordenada[] { 
-                    new Coordenada(0, 0),
-                    new Coordenada(6, 6),
-                    new Coordenada(1, 0), 
-                    new Coordenada(2, 0), 
-                    new Coordenada(3, 0), 
-                    new Coordenada(0, 1), 
-                    new Coordenada(0, 2),
-                    new Coordenada(0, 3),
-                    new Coordenada(3, 6), 
-                    new Coordenada(4, 6), 
-                    new Coordenada(5, 6), 
-                    new Coordenada(6, 3),
-                    new Coordenada(6, 4), 
-                    new Coordenada(6, 5), },
-                Color.BLANCO);
-		numeroJugadas = 0;
-		this.turno = Color.BLANCO;
-	}
+        // Crear la lista de piezas
+        List<Pieza> piezas = Arrays.asList(
+                new Pieza(TipoPieza.REINA, Color.BLANCO),
+                new Pieza(TipoPieza.REINA, Color.NEGRO),
+                new Pieza(TipoPieza.PEON, Color.BLANCO),
+                new Pieza(TipoPieza.PEON, Color.BLANCO),
+                new Pieza(TipoPieza.PEON, Color.BLANCO),
+                new Pieza(TipoPieza.PEON, Color.BLANCO),
+                new Pieza(TipoPieza.PEON, Color.BLANCO),
+                new Pieza(TipoPieza.PEON, Color.BLANCO),
+                new Pieza(TipoPieza.PEON, Color.NEGRO),
+                new Pieza(TipoPieza.PEON, Color.NEGRO),
+                new Pieza(TipoPieza.PEON, Color.NEGRO),
+                new Pieza(TipoPieza.PEON, Color.NEGRO),
+                new Pieza(TipoPieza.PEON, Color.NEGRO),
+                new Pieza(TipoPieza.PEON, Color.NEGRO)
+        );
+
+        // Crear la lista de coordenadas
+        List<Coordenada> coordenadas = Arrays.asList(
+                new Coordenada(0, 0), // Reina blanca
+                new Coordenada(6, 6), // Reina negra
+                new Coordenada(1, 0), 
+                new Coordenada(2, 0), 
+                new Coordenada(3, 0), 
+                new Coordenada(0, 1), 
+                new Coordenada(0, 2),
+                new Coordenada(0, 3),
+                new Coordenada(3, 6), 
+                new Coordenada(4, 6), 
+                new Coordenada(5, 6), 
+                new Coordenada(6, 3),
+                new Coordenada(6, 4), 
+                new Coordenada(6, 5)
+        );
+        colocarPiezas(piezas, coordenadas, Color.BLANCO);   
+        numeroJugadas = 0;
+        this.turno = Color.BLANCO;
+    }
 
 	/**
 	 * Consulta la caja de piezas capturadas para un color específico.
@@ -161,7 +167,7 @@ public class Arbitro {
 	 */
 	public Color consultarTurnoGanador() {
 		Color ganador = null;
-		TableroConsultor tableroCons = new TableroConsultor(tablero);
+		TableroConsultor<Tablero> tableroCons = new TableroConsultor<>(tablero);
 
 		if (estaFinalizadaPartida()) {
 			if (tableroCons.estaReinaEnElCentro(Color.BLANCO)) {
@@ -190,7 +196,7 @@ public class Arbitro {
 	 */
 	public void empujar(Jugada jugada) {
 		numeroJugadas++;
-		TableroConsultor tableroCons = new TableroConsultor(tablero);
+		TableroConsultor<Tablero> tableroCons = new TableroConsultor<>(tablero);
 		Celda origen = jugada.origen();
 		Celda destino = jugada.destino();
 
@@ -255,7 +261,7 @@ public class Arbitro {
 	public boolean esMovimientoLegal(Jugada jugada) {
 		Coordenada origen = jugada.origen().consultarCoordenada();
 		Coordenada destino = jugada.destino().consultarCoordenada();
-		TableroConsultor tableroCons = new TableroConsultor(tablero);
+		TableroConsultor<Tablero> tableroCons = new TableroConsultor<>(tablero);
 		boolean result = false;
 
 		if (tablero.estanEnTablero(origen) && tablero.estanEnTablero(destino) && !origen.equals(destino)) {
@@ -289,7 +295,7 @@ public class Arbitro {
 	 * @return true si la partida ha finalizado, false en caso contrario
 	 */
 	public boolean estaFinalizadaPartida() {
-		TableroConsultor tableroCons = new TableroConsultor(tablero);
+		TableroConsultor<Tablero> tableroCons = new TableroConsultor<>(tablero);
 		return !tableroCons.hayReina(Color.BLANCO) || !tableroCons.hayReina(Color.NEGRO)
 				|| tableroCons.estaReinaEnElCentro(Color.BLANCO) || tableroCons.estaReinaEnElCentro(Color.NEGRO);
 	}
