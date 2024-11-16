@@ -60,7 +60,13 @@ public class Arbitro {
 	}
 	
 	public Arbitro clonar() {
-		return null;
+		Arbitro clon = new Arbitro(this.tablero);
+		clon.turno=this.turno;
+		clon.tablero=this.tablero;
+		clon.numeroJugadas=this.numeroJugadas;
+		clon.cajaBlanca=this.cajaBlanca;
+		clon.cajaNegra=this.cajaNegra;
+		return clon;
 	}
 
     /**
