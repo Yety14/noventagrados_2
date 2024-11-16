@@ -8,6 +8,15 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Excepción lanzada cuando se intenta seleccionar una opción no disponible.
+ * 
+ * @author Víctor Vidal Vivanco
+ * @author Guillermo López de Arechavaleta Zapatero
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class MaquinaDelTiempoConArbitros extends MecanismoDeDeshacerAbstracto {
     private List<Arbitro> historicoArbitros; // Historial de árbitros
 
@@ -37,17 +46,17 @@ public class MaquinaDelTiempoConArbitros extends MecanismoDeDeshacerAbstracto {
 
     @Override
     public void hacerJugada(Jugada jugada) {
-        Arbitro nuevoArbitro = clonarArbitro(consultarArbitroActual()); // Clona el árbitro actual
-        aplicarJugada(nuevoArbitro, jugada); // Aplica la jugada al nuevo árbitro
-        historicoArbitros.add(nuevoArbitro); // Agrega el nuevo estado al historial
+        Arbitro nuevoArbitro = clonarArbitro(consultarArbitroActual());
+        aplicarJugada(nuevoArbitro, jugada);
+        historicoArbitros.add(nuevoArbitro);
     }
 
     private void aplicarJugada(Arbitro arbitro, Jugada jugada) {
-        arbitro.empujar(jugada); // Aplica la jugada al árbitro
+        arbitro.empujar(jugada);
     }
 
     private Arbitro clonarArbitro(Arbitro arbitro) {
-        return new Arbitro(arbitro.consultarTablero().clonar()); // Clona el árbitro y su estado
+        return new Arbitro(arbitro.consultarTablero().clonar());
     }
 
     private Arbitro generarPartidaInicial() {

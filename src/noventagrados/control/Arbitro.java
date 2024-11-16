@@ -222,7 +222,7 @@ public class Arbitro {
 			}
 		}
 		tablero.colocar(pieza, coordDestino);
-	}
+		}
 
 	/**
 	 * Método privado auxiliar para mover una pieza en el tablero.
@@ -257,7 +257,7 @@ public class Arbitro {
 			}
 		}
 	}
-
+	
 	/**
 	 * Verifica si un movimiento es legal según las reglas del juego.
 	 * 

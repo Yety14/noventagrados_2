@@ -69,37 +69,50 @@ public class NoventaGrados {
 	 * 
 	 * @param args argumentos de entrada en línea de comandos
 	 */
-	public static void main(String[] args) {						//Main practica anterior
-		mostrarMensajeBienvenida();
-		inicializarPartida();
-		String jugadaTexto = "";
-				
-		while (!comprobarSalir(jugadaTexto)) {
-			mostrarTablero();
-			jugadaTexto = recogerTextoDeJugadaPorTeclado();
-			
-			if (comprobarSalir(jugadaTexto)) {
-				finalizarPartida();
-			} else {
-				if (comprobarFinalizacionPartida()) {
-					finalizarPartida();
-					mostrarGanador();
-					inicializarPartida();
-					continue;
-				}
-				if (!validarFormato(jugadaTexto)) {
-					mostrarErrorEnFormatoDeEntrada();
-					continue;
-				}
+	public static void main(String[] args) {
+		mostrarMensajeBienvenida(); // Muestra el mensaje de bienvenida
 
-				Jugada jugada = extraerJugada(jugadaTexto);
-				if (!esLegal(jugada)) {
-					mostrarErrorPorMovimientoIlegal(jugadaTexto);
-					continue;
+		try {
+			extraerModoDeshacer(args); // Extrae el modo de deshacer desde los argumentos
+
+			inicializarPartida(); // Inicializa el estado de la partida
+			String jugadaTexto = "";
+
+			while (!comprobarSalir(jugadaTexto)) { // Bucle principal del juego
+				mostrarTablero(); // Muestra el estado actual del tablero
+				jugadaTexto = recogerTextoDeJugadaPorTeclado(); // Recoge la jugada del usuario
+
+				if (comprobarSalir(jugadaTexto)) { // Verifica si se quiere salir
+					finalizarPartida(); // Finaliza la partida
+				} else if (comprobarDeshacer(jugadaTexto)) { // Verifica si se quiere deshacer
+					deshacerJugada(); // Deshace la última jugada
+				} else {
+					if (comprobarFinalizacionPartida()) { // Verifica si la partida ha terminado
+						finalizarPartida(); // Finaliza la partida
+						mostrarGanador(); // Muestra el ganador
+						inicializarPartida(); // Reinicia la partida
+						continue; // Continúa con el bucle
+					}
+					if (!validarFormato(jugadaTexto)) { // Valida el formato de la jugada
+						mostrarErrorEnFormatoDeEntrada(); // Muestra un error si el formato es incorrecto
+						continue; // Continúa con el bucle
+					}
+
+					Jugada jugada = extraerJugada(jugadaTexto); // Extrae la jugada a partir del texto
+					if (!esLegal(jugada)) { // Verifica si la jugada es legal
+						mostrarErrorPorMovimientoIlegal(jugadaTexto); // Muestra un error si la jugada es ilegal
+						continue; // Continúa con el bucle
+					}
+					realizarEmpujón(jugada); // Realiza la jugada
+					cambiarTurnoPartida(); // Cambia el turno de la partida
 				}
-				realizarEmpujón(jugada);
-				cambiarTurnoPartida();
 			}
+		} catch (OpcionNoDisponibleException e) {
+			mostrarErrorSeleccionandoModo(); // Muestra un error si el modo de deshacer no es válido
+			System.exit(1); // Salir con un código de error
+		} catch (Exception e) {
+			mostrarErrorInterno((RuntimeException) e); // Maneja cualquier otra excepción
+			System.exit(1); // Salir con un código de error
 		}
 	}
 
@@ -142,8 +155,8 @@ public class NoventaGrados {
 	 * que jugamos. No comprueba la corrección del texto introducido.
 	 * 
 	 * @param args argumentos
-	 * @throws OpcionNoDisponibleException si el argumento con el modo de deshacer no
-	 *                                  es correcto
+	 * @throws OpcionNoDisponibleException si el argumento con el modo de deshacer
+	 *                                     no es correcto
 	 */
 	private static void extraerModoDeshacer(String[] args) throws OpcionNoDisponibleException {
 		// COMPLETAR POR EL ALUMNADO
@@ -207,7 +220,7 @@ public class NoventaGrados {
 	private static boolean comprobarSalir(String jugada) {
 		return jugada.equalsIgnoreCase(TEXTO_SALIR);
 	}
-	
+
 	/**
 	 * Comprueba si se quiere deshacer la última jugada.
 	 * 
@@ -372,7 +385,7 @@ public class NoventaGrados {
 	/**
 	 * Muestra el estado del tablero con sus piezas actuales en pantalla.
 	 */
-	private static void mostrarTablero() {		
+	private static void mostrarTablero() {
 		System.out.println();
 		System.out.println(arbitro.consultarTablero().aTexto());
 	}
