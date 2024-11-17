@@ -1,7 +1,6 @@
 package noventagrados.modelo;
 
 import noventagrados.util.Coordenada;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,27 +23,26 @@ public class Tablero {
 	private static final int COLUMNAS = 7;
 
 	/**
-	 * Matriz que representa las celdas del tablero.
+	 * Lista de listas que representa las celdas del tablero.
 	 * 
-	 * Cada celda puede contener una pieza del juego o estar vacía. La matriz es de
-	 * tamaño 7 x 7.
+	 * Cada celda puede contener una pieza del juego o estar vacía.
 	 */
-
-	private final Celda[][] celdas;
+	private final List<List<Celda>> celdas;
 
 	/**
 	 * Constructor que inicializa el tablero con celdas vacías.
 	 */
 	public Tablero() {
-		celdas = new Celda[FILAS][COLUMNAS];
+		celdas = new ArrayList<>(FILAS);
 		for (int fila = 0; fila < FILAS; fila++) {
+			List<Celda> filaCeldas = new ArrayList<>(COLUMNAS);
 			for (int columna = 0; columna < COLUMNAS; columna++) {
-				celdas[fila][columna] = new Celda(new Coordenada(fila, columna));
+				filaCeldas.add(new Celda(new Coordenada(fila, columna)));
 			}
+			celdas.add(filaCeldas);
 		}
 	}
 	
-
 	/**
 	 * Genera una representación textual del tablero.
 	 * 
@@ -58,18 +56,14 @@ public class Tablero {
 		for (int fila = 0; fila < FILAS; fila++) {
 			sb.append(fila + " ");
 			for (int columna = 0; columna < COLUMNAS; columna++) {
-				Celda celda = celdas[fila][columna];
-				// En vez de mostrar todos los datos correspondientes de la pieza, hay que
-				// mostrar
-				// la concatenación de los chars correspondientes
+				Celda celda = celdas.get(fila).get(columna);
 				tipoPieza = celda.estaVacia() ? " -- " : " " + celda.consultarPieza().consultarTipoPieza().toChar();
 				colorPieza = celda.estaVacia() ? ' ' : celda.consultarColorDePieza().toChar();
 				sb.append(celda.estaVacia() ? " -- " : tipoPieza + colorPieza + " ");
 			}
 			sb.append("\n");
-			// Imprimir el número de las columnas por debajo de la ultima fila
 			if (fila == FILAS - 1) {
-				for (int i = 0; i < FILAS; i++) {
+				for (int i = 0; i < COLUMNAS; i++) {
 					sb.append("   " + i);
 				}
 			}
@@ -77,7 +71,6 @@ public class Tablero {
 		}
 		return sb.toString();
 	}
-
 
 	/**
 	 * Crea y devuelve una copia profunda del tablero.
@@ -88,7 +81,7 @@ public class Tablero {
 		Tablero clon = new Tablero();
 		for (int fila = 0; fila < FILAS; fila++) {
 			for (int columna = 0; columna < COLUMNAS; columna++) {
-				clon.celdas[fila][columna] = this.celdas[fila][columna].clonar();
+				clon.celdas.get(fila).set(columna, this.celdas.get(fila).get(columna).clonar());
 			}
 		}
 		return clon;
@@ -102,10 +95,9 @@ public class Tablero {
 	 */
 	public void colocar(Pieza pieza, Coordenada coordenada) {
 		if (pieza != null && coordenada != null && estanEnTablero(coordenada)) {
-			celdas[coordenada.fila()][coordenada.columna()].colocar(pieza);
+			celdas.get(coordenada.fila()).get(coordenada.columna()).colocar(pieza);
 		}
 	}
-
 
 	/**
 	 * Consulta la celda en la coordenada especificada.
@@ -115,12 +107,11 @@ public class Tablero {
 	 *         coordenada es inválida
 	 */
 	public Celda consultarCelda(Coordenada coordenada) {
-		if (estanEnTablero(coordenada)) {
-			return celdas[coordenada.fila()][coordenada.columna()].clonar(); // devuelve un clon en profundidad
+	 if (estanEnTablero(coordenada)) {
+			return celdas.get(coordenada.fila()).get(coordenada.columna()).clonar(); // devuelve un clon en profundidad
 		}
 		return null;
 	}
-
 
 	/**
 	 * Devuelve un array con todas las celdas del tablero.
@@ -131,12 +122,11 @@ public class Tablero {
 	    List<Celda> celdasList = new ArrayList<>(FILAS * COLUMNAS);
 	    for (int fila = 0; fila < FILAS; fila++) {
 	        for (int columna = 0; columna < COLUMNAS; columna++) {
-	            celdasList.add(celdas[fila][columna].clonar()); // Clona cada celda antes de añadir
+	            celdasList.add(celdas.get(fila).get(columna).clonar()); // Clona cada celda antes de añadir
 	        }
 	    }
 	    return celdasList;
 	}
-
 
 	/**
 	 * Devuelve el número de columnas del tablero.
@@ -146,7 +136,6 @@ public class Tablero {
 	public int consultarNumeroColumnas() {
 		return COLUMNAS;
 	}
-
 
 	/**
 	 * Devuelve el número de filas del tablero.
@@ -189,7 +178,7 @@ public class Tablero {
 	 *         inválida
 	 */
 	Celda obtenerCelda(Coordenada coordenada) {
-		return estanEnTablero(coordenada) ? celdas[coordenada.fila()][coordenada.columna()] : null;
+		return estanEnTablero(coordenada) ? celdas.get(coordenada.fila()).get(coordenada.columna()) : null;
 	}
 
 	/**
@@ -205,7 +194,14 @@ public class Tablero {
 		if (obj == null || getClass() != obj.getClass())
 			return false;
 		Tablero otroTablero = (Tablero) obj;
-		return Arrays.deepEquals(celdas, otroTablero.celdas);
+		for (int fila = 0; fila < FILAS; fila++) {
+			for (int columna = 0; columna < COLUMNAS; columna++) {
+				if (!this.celdas.get(fila).get(columna).equals(otroTablero.celdas.get(fila).get(columna))) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -215,8 +211,15 @@ public class Tablero {
 	 */
 	@Override
 	public int hashCode() {
-		return Arrays.deepHashCode(celdas);
+		int result = 1;
+		for (List<Celda> fila : celdas) {
+			for (Celda celda : fila) {
+				result = 31 * result + (celda != null ? celda.hashCode() : 0);
+			}
+		}
+		return result;
 	}
+
 	/**
 	 * Devuelve una representación en cadena del tablero.
 	 * 
@@ -226,5 +229,4 @@ public class Tablero {
 	public String toString() {
 		return aTexto();
 	}
-
 }

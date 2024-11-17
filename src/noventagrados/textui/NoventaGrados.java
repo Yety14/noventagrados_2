@@ -73,23 +73,26 @@ public class NoventaGrados {
 		mostrarMensajeBienvenida(); // Muestra el mensaje de bienvenida
 
 		try {
-			extraerModoDeshacer(args); // Extrae el modo de deshacer desde los argumentos
-
-			inicializarPartida(); // Inicializa el estado de la partida
+			configuracion = "";
+			extraerModoDeshacer(args);
+			seleccionarMecanismoDeshacer(configuracion);
+			inicializarPartida();
+			mostrarTablero();
 			String jugadaTexto = "";
+			boolean partidaEnCurso = true;
+			
+			while (partidaEnCurso) {
+				jugadaTexto = recogerTextoDeJugadaPorTeclado();
 
-			while (!comprobarSalir(jugadaTexto)) { // Bucle principal del juego
-				mostrarTablero(); // Muestra el estado actual del tablero
-				jugadaTexto = recogerTextoDeJugadaPorTeclado(); // Recoge la jugada del usuario
-
-				if (comprobarSalir(jugadaTexto)) { // Verifica si se quiere salir
-					finalizarPartida(); // Finaliza la partida
-				} else if (comprobarDeshacer(jugadaTexto)) { // Verifica si se quiere deshacer
-					deshacerJugada(); // Deshace la última jugada
+				if (comprobarSalir(jugadaTexto)) {
+					finalizarPartida();
+					partidaEnCurso = false;
+				} else if (comprobarDeshacer(jugadaTexto)) {
+					deshacerJugada();
 				} else {
-					if (comprobarFinalizacionPartida()) { // Verifica si la partida ha terminado
-						finalizarPartida(); // Finaliza la partida
-						mostrarGanador(); // Muestra el ganador
+					if (comprobarFinalizacionPartida()) {
+						finalizarPartida();
+						mostrarGanador();
 						inicializarPartida(); // Reinicia la partida
 						continue; // Continúa con el bucle
 					}
@@ -103,16 +106,17 @@ public class NoventaGrados {
 						mostrarErrorPorMovimientoIlegal(jugadaTexto); // Muestra un error si la jugada es ilegal
 						continue; // Continúa con el bucle
 					}
-					realizarEmpujón(jugada); // Realiza la jugada
-					cambiarTurnoPartida(); // Cambia el turno de la partida
+					realizarEmpujón(jugada);
+					mostrarTablero();
+					cambiarTurnoPartida();
 				}
 			}
 		} catch (OpcionNoDisponibleException e) {
-			mostrarErrorSeleccionandoModo(); // Muestra un error si el modo de deshacer no es válido
-			System.exit(1); // Salir con un código de error
+			mostrarErrorSeleccionandoModo();
+			System.exit(1);
 		} catch (Exception e) {
-			mostrarErrorInterno((RuntimeException) e); // Maneja cualquier otra excepción
-			System.exit(1); // Salir con un código de error
+			mostrarErrorInterno((RuntimeException) e);
+			System.exit(1);
 		}
 	}
 
@@ -159,8 +163,11 @@ public class NoventaGrados {
 	 *                                     no es correcto
 	 */
 	private static void extraerModoDeshacer(String[] args) throws OpcionNoDisponibleException {
-		// COMPLETAR POR EL ALUMNADO
-		// OBLIGATORIO COMPLETAR EL CUERPO DEL MÉTODO
+		if (args.length == 0) {
+			configuracion = "jugadas";
+		} else {
+			configuracion = args[0];
+		}
 
 	}
 

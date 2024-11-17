@@ -92,13 +92,14 @@ public class MaquinaDelTiempoConJugadas extends MecanismoDeDeshacerAbstracto {
 		System.out.println("Coordenada destino"+coordDestino);
 		
 		arbitroActual.empujar(jugada);
-		historicoTableros.add(arbitroActual.consultarTablero().clonar()); // Guarda el estado actual del tablero
+		historicoTableros.add(arbitroActual.consultarTablero().clonar());
 		historicoJugadas.add(jugada);
 
 		arbitroActual.consultarTablero().colocar(pieza, coordDestino);
 		System.out.print("Despues"+arbitroActual.consultarTablero());
 	}
 
+	
 	@Override
 	public Date obtenerFechaInicio() {
 		return fechaInicio; // Devuelve la fecha de inicio del mecanismo de deshacer

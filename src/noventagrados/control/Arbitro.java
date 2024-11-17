@@ -203,12 +203,17 @@ public class Arbitro {
 	public void empujar(Jugada jugada) {
 		numeroJugadas++;
 		TableroConsultor<Tablero> tableroCons = new TableroConsultor<>(tablero);
+		System.out.println("tablero antes colocar "+tableroCons);
 		Celda origen = jugada.origen();
 		Celda destino = jugada.destino();
-
+		System.out.println("Origen "+ origen);
 		Coordenada coordOrigen = origen.consultarCoordenada();
 		Coordenada coordDestino = destino.consultarCoordenada();
 		Pieza pieza = origen.consultarPieza();
+		if (pieza==null) {
+		    throw new NullPointerException("La pieza es nula.");
+		}
+		System.out.println("Pieza "+pieza+"\tdestino"+coordDestino);
 
 		Sentido sentido = tableroCons.calcularSentido(coordOrigen, coordDestino);
 
@@ -221,7 +226,10 @@ public class Arbitro {
 				moverPieza(coordOrigen, coordDestino, sentido, false);
 			}
 		}
+	//	System.out.println("tablero antes colocar "+tableroCons);
+		System.out.println("Pieza "+pieza+"destino"+coordDestino);
 		tablero.colocar(pieza, coordDestino);
+		//System.out.println("tablero despues colocar "+tableroCons);
 		}
 
 	/**
