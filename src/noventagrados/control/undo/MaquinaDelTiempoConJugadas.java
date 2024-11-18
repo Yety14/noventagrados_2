@@ -37,6 +37,7 @@ public class MaquinaDelTiempoConJugadas extends MecanismoDeDeshacerAbstracto {
 		nuevoArbitro.colocarPiezasConfiguracionInicial();
 		for (int i = 0; i < historicoJugadas.size(); i++) {
 			nuevoArbitro.empujar(historicoJugadas.get(i)); // Aplica cada jugada en el nuevo árbitro
+			nuevoArbitro.cambiarTurno();
 		}
 		return nuevoArbitro; // Devuelve el árbitro en el estado actual
 	}
@@ -49,13 +50,10 @@ public class MaquinaDelTiempoConJugadas extends MecanismoDeDeshacerAbstracto {
 	@Override
 	public void deshacerJugada() {
 		if (!historicoJugadas.isEmpty()) {
-			// Elimina la última jugada del histórico
 			historicoJugadas.remove(consultarNumeroJugadasEnHistorico() - 1);
 
-			// Verifica si hay un tablero anterior para restaurar
 			if (!historicoTableros.isEmpty()) {
 				Tablero tableroAnterior = historicoTableros.remove(historicoTableros.size() - 1); // Restaura el tablero
-				// Aquí es donde colocamos todas las piezas en sus posiciones correspondientes
 				List<Pieza> piezas = new ArrayList<>();
 				List<Coordenada> coordenadas = new ArrayList<>();
 
@@ -72,8 +70,7 @@ public class MaquinaDelTiempoConJugadas extends MecanismoDeDeshacerAbstracto {
 					}
 				}
 
-				// Coloca las piezas en el tablero actual usando el método colocarPiezas
-				Arbitro arbitroActual = consultarArbitroActual(); // Obtiene el árbitro actual
+				Arbitro arbitroActual = consultarArbitroActual();
 				arbitroActual.cambiarTurno();
 				arbitroActual.colocarPiezas(piezas, coordenadas, arbitroActual.consultarTurno());
 
@@ -84,19 +81,10 @@ public class MaquinaDelTiempoConJugadas extends MecanismoDeDeshacerAbstracto {
 	@Override
 	public void hacerJugada(Jugada jugada) {
 		Arbitro arbitroActual = consultarArbitroActual();
-		
-		System.out.print("Antes"+arbitroActual.consultarTablero());
-		Pieza pieza =arbitroActual.consultarTablero().consultarCelda(jugada.origen().consultarCoordenada()).consultarPieza();
-		System.out.println(pieza);
-		Coordenada coordDestino = jugada.destino().consultarCoordenada();
-		System.out.println("Coordenada destino"+coordDestino);
-		
 		arbitroActual.empujar(jugada);
 		historicoTableros.add(arbitroActual.consultarTablero().clonar());
 		historicoJugadas.add(jugada);
 
-		arbitroActual.consultarTablero().colocar(pieza, coordDestino);
-		System.out.print("Despues"+arbitroActual.consultarTablero());
 	}
 
 	

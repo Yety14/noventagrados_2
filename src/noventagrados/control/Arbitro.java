@@ -88,7 +88,6 @@ public class Arbitro {
 	 * Coloca las piezas en la configuración inicial del juego.
 	 */
     public void colocarPiezasConfiguracionInicial() {
-        // Crear la lista de piezas
         List<Pieza> piezas = Arrays.asList(
                 new Pieza(TipoPieza.REINA, Color.BLANCO),
                 new Pieza(TipoPieza.REINA, Color.NEGRO),
@@ -106,10 +105,9 @@ public class Arbitro {
                 new Pieza(TipoPieza.PEON, Color.NEGRO)
         );
 
-        // Crear la lista de coordenadas
         List<Coordenada> coordenadas = Arrays.asList(
-                new Coordenada(0, 0), // Reina blanca
-                new Coordenada(6, 6), // Reina negra
+                new Coordenada(0, 0),
+                new Coordenada(6, 6),
                 new Coordenada(1, 0), 
                 new Coordenada(2, 0), 
                 new Coordenada(3, 0), 
@@ -123,7 +121,7 @@ public class Arbitro {
                 new Coordenada(6, 4), 
                 new Coordenada(6, 5)
         );
-        colocarPiezas(piezas, coordenadas, Color.BLANCO);   
+        colocarPiezas(piezas, coordenadas, Color.BLANCO);       
         numeroJugadas = 0;
         this.turno = Color.BLANCO;
     }
@@ -203,18 +201,11 @@ public class Arbitro {
 	public void empujar(Jugada jugada) {
 		numeroJugadas++;
 		TableroConsultor<Tablero> tableroCons = new TableroConsultor<>(tablero);
-		System.out.println("tablero antes colocar "+tableroCons);
 		Celda origen = jugada.origen();
 		Celda destino = jugada.destino();
-		System.out.println("Origen "+ origen);
 		Coordenada coordOrigen = origen.consultarCoordenada();
-		Coordenada coordDestino = destino.consultarCoordenada();
-		Pieza pieza = origen.consultarPieza();
-		if (pieza==null) {
-		    throw new NullPointerException("La pieza es nula.");
-		}
-		System.out.println("Pieza "+pieza+"\tdestino"+coordDestino);
-
+		Coordenada coordDestino = destino.consultarCoordenada();	
+		Pieza pieza = tablero.consultarCelda(coordOrigen).consultarPieza();
 		Sentido sentido = tableroCons.calcularSentido(coordOrigen, coordDestino);
 
 		if (!tablero.estanEnTablero(coordDestino) && pieza != null) {
@@ -226,10 +217,7 @@ public class Arbitro {
 				moverPieza(coordOrigen, coordDestino, sentido, false);
 			}
 		}
-	//	System.out.println("tablero antes colocar "+tableroCons);
-		System.out.println("Pieza "+pieza+"destino"+coordDestino);
 		tablero.colocar(pieza, coordDestino);
-		//System.out.println("tablero despues colocar "+tableroCons);
 		}
 
 	/**
