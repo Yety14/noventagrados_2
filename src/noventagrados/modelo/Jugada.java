@@ -1,8 +1,9 @@
 package noventagrados.modelo;
 
 /**
- * Describe una jugada en el juego. Una jugada consiste en un movimiento desde
- * una celda de origen a una celda de destino.
+ * Representa una jugada en el juego, con un movimiento de una celda de origen a
+ * una celda de destino. Utiliza un record para representar de forma inmutable
+ * las celdas de origen y destino.
  * 
  * @author Víctor Vidal Vivanco
  * @author Guillermo López de Arechavaleta Zapatero
@@ -11,23 +12,21 @@ package noventagrados.modelo;
  */
 
 /**
- * Constructor que crea una nueva instancia de una Jugada con las celdas de
- * origen y destino especificadas.
+ * Constructor que crea una nueva instancia de una Coordenada con los valores
+ * especificados para fila y columna.
  *
- * @param origen  La celda de origen desde donde se realiza la jugada.
- * @param destino La celda de destino hacia donde se mueve.
+ * @param origen  La celda de origen de la jugada.
+ * @param destino La celda de destino de la jugada.
  */
 public record Jugada(Celda origen, Celda destino) {
 
 	/**
-	 * Convierte la jugada a una representación textual. El formato es "filaorigen
-	 * columna origen-fila destino columna destino".
+	 * Convierte la jugada a una representación textual en formato "origen-destino".
 	 *
-	 * @return Una cadena que representa la jugada en formato texto
+	 * @return Cadena representando la jugada.
 	 */
 	public String aTexto() {
 		return String.format("%d%d-%d%d", origen.consultarCoordenada().fila(), origen.consultarCoordenada().columna(),
 				destino.consultarCoordenada().fila(), destino.consultarCoordenada().columna());
 	}
-
 }

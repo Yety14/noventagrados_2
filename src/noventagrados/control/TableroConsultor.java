@@ -9,14 +9,17 @@ import noventagrados.util.TipoPieza;
 import noventagrados.modelo.Pieza;
 
 /**
- * El tablero consultor usado por el Arbitro.
+ * Clase genérica para consultar información del tablero. Proporciona métodos
+ * para analizar la posición de piezas, su cantidad, y sus relaciones en el
+ * tablero.
+ *
+ * @param <T> Tipo genérico que extiende la clase Tablero
  * 
  * @author Víctor Vidal Vivanco
  * @author Guillermo López de Arechavaleta Zapatero
  * @version 1.0
  * @since 1.0
  */
-
 public class TableroConsultor<T extends Tablero> {
 
 	/** El tablero que este consultor está observando. */
@@ -32,11 +35,13 @@ public class TableroConsultor<T extends Tablero> {
 	}
 
 	/**
-	 * Calcula el sentido del movimiento entre dos coordenadas.
-	 * 
-	 * @param origen  Coordenada de origen
-	 * @param destino Coordenada de destino
-	 * @return El sentido del movimiento, o null si no es un movimiento válido
+	 * Determina el sentido cardinal del movimiento entre dos coordenadas en el
+	 * tablero. Un movimiento válido debe ser estrictamente horizontal o vertical.
+	 *
+	 * @param origen  Coordenada de inicio
+	 * @param destino Coordenada de fin
+	 * @return El sentido del movimiento (Norte, Sur, Este, Oeste) o null si no es
+	 *         válido
 	 */
 	public Sentido calcularSentido(Coordenada origen, Coordenada destino) {
 		if (origen.fila() == destino.fila()) {
@@ -76,11 +81,12 @@ public class TableroConsultor<T extends Tablero> {
 	}
 
 	/**
-	 * Cuenta el número de piezas de un tipo y color específicos en el tablero.
-	 * 
-	 * @param tipoPieza El tipo de pieza a contar
+	 * Cuenta la cantidad de piezas de un tipo y color específicos presentes en todo
+	 * el tablero.
+	 *
+	 * @param tipoPieza El tipo de pieza a contar (e.g., REINA, PEON)
 	 * @param color     El color de las piezas a contar
-	 * @return El número de piezas que cumplen los criterios
+	 * @return El número total de piezas que cumplen las condiciones
 	 */
 	public int consultarNumeroPiezas(TipoPieza tipoPieza, Color color) {
 		int count = 0;
@@ -135,11 +141,12 @@ public class TableroConsultor<T extends Tablero> {
 	}
 
 	/**
-	 * Verifica si la reina de un color específico está en el centro del tablero.
-	 * 
-	 * @param color El color de la reina a verificar
-	 * @return true si la reina del color especificado está en el centro, false en
-	 *         caso contrario
+	 * Verifica si la reina de un color específico está situada en el centro del
+	 * tablero. El centro se calcula como la celda en las coordenadas medias del
+	 * tablero.
+	 *
+	 * @param color El color de la reina que se desea verificar
+	 * @return true si la reina está en el centro, false en caso contrario
 	 */
 	public boolean estaReinaEnElCentro(Color color) {
 		Celda celdaCentro = tablero.consultarCelda(
@@ -152,11 +159,10 @@ public class TableroConsultor<T extends Tablero> {
 	}
 
 	/**
-	 * Verifica si hay una reina de un color específico en el tablero.
-	 * 
+	 * Busca la existencia de una reina de un color específico en el tablero.
+	 *
 	 * @param color El color de la reina a buscar
-	 * @return true si hay una reina del color especificado en el tablero, false en
-	 *         caso contrario
+	 * @return true si hay al menos una reina del color especificado, false si no
 	 */
 	public boolean hayReina(Color color) {
 		for (int fila = 0; fila < tablero.consultarNumeroFilas(); fila++) {
@@ -182,5 +188,4 @@ public class TableroConsultor<T extends Tablero> {
 	public String toString() {
 		return "TableroConsultor [tablero=" + tablero + "]";
 	}
-
 }//

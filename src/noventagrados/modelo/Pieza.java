@@ -1,20 +1,17 @@
 package noventagrados.modelo;
 
 import java.util.Objects;
-
-import noventagrados.modelo.Pieza;
 import noventagrados.util.Color;
 import noventagrados.util.TipoPieza;
 
 /**
- * Clase que representa una pieza.
+ * Representa una pieza del juego con un color y tipo.
  * 
  * @author Víctor Vidal Vivanco
  * @author Guillermo López de Arechavaleta Zapatero
  * @version 1.0
  * @since 1.0
  */
-
 public class Pieza {
 
 	/** Color de la pieza. */
@@ -24,7 +21,7 @@ public class Pieza {
 	private TipoPieza tipoPieza;
 
 	/**
-	 * Construye una nueva pieza con el tipo y color especificados.
+	 * Constructor para crear una pieza con tipo y color especificados.
 	 *
 	 * @param tipoPieza el tipo de la pieza
 	 * @param color     el color de la pieza
@@ -32,25 +29,30 @@ public class Pieza {
 	public Pieza(TipoPieza tipoPieza, Color color) {
 		this.color = color;
 		this.tipoPieza = tipoPieza;
-
 	}
+
+	/**
+	 * Convierte la pieza a una representación textual.
+	 *
+	 * @return La representación en texto de la pieza.
+	 */
 	public String aTexto() {
 		return toString();
 	}
+
 	/**
-	 * Crea y devuelve una copia profunda de la pieza.
+	 * Crea una copia profunda de la pieza.
 	 *
-	 * @return una nueva instancia de Pieza con las mismas propiedades que esta
+	 * @return Nueva instancia de Pieza con las mismas propiedades.
 	 */
 	public Pieza clonar() {
-		Pieza nueva = new Pieza(this.tipoPieza, this.color);
-		return nueva;
+		return new Pieza(this.tipoPieza, this.color);
 	}
 
 	/**
 	 * Consulta el color de la pieza.
 	 *
-	 * @return el color de la pieza
+	 * @return El color de la pieza.
 	 */
 	public Color consultarColor() {
 		return color;
@@ -59,7 +61,7 @@ public class Pieza {
 	/**
 	 * Consulta el tipo de la pieza.
 	 *
-	 * @return el tipo de la pieza
+	 * @return El tipo de la pieza.
 	 */
 	public TipoPieza consultarTipoPieza() {
 		return tipoPieza;
@@ -68,7 +70,7 @@ public class Pieza {
 	/**
 	 * Genera un código hash para la pieza.
 	 *
-	 * @return el código hash basado en el color y tipo de la pieza
+	 * @return Código hash basado en el color y tipo.
 	 */
 	@Override
 	public int hashCode() {
@@ -76,11 +78,10 @@ public class Pieza {
 	}
 
 	/**
-	 * Compara esta pieza con otro objeto para determinar si son iguales. Dos piezas
-	 * son consideradas iguales si tienen el mismo color y tipo.
+	 * Compara esta pieza con otra para determinar si son iguales.
 	 *
-	 * @param obj el objeto a comparar con esta pieza
-	 * @return true si son iguales, false en caso contrario
+	 * @param obj el objeto a comparar con esta pieza.
+	 * @return true si son iguales, false si no lo son.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -91,18 +92,16 @@ public class Pieza {
 		if (getClass() != obj.getClass())
 			return false;
 		Pieza other = (Pieza) obj;
-		return Objects.equals(color, other.color) && Objects.equals(tipoPieza, other.tipoPieza); // Añadir comparación
-																									// de atributos
+		return Objects.equals(color, other.color) && Objects.equals(tipoPieza, other.tipoPieza);
 	}
 
 	/**
 	 * Devuelve una representación en cadena de la pieza.
 	 *
-	 * @return una cadena que describe la pieza, incluyendo su color y tipo
+	 * @return Descripción de la pieza con su color y tipo.
 	 */
 	@Override
 	public String toString() {
 		return "Pieza [color=" + color + ", tipoPieza=" + tipoPieza + "]";
 	}
-
 }

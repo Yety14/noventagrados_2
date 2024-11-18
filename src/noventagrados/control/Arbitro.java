@@ -12,16 +12,16 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.Objects;
 
-
 /**
- * El arbitro del juego.
+ * Clase que representa al árbitro del juego. El árbitro es responsable de
+ * gestionar el estado del tablero, los turnos de los jugadores, las jugadas
+ * realizadas y determinar el ganador del juego.
  * 
  * @author Víctor Vidal Vivanco
  * @author Guillermo López de Arechavaleta Zapatero
  * @version 1.0
  * @since 1.0
  */
-
 public class Arbitro {
 
 	/** El color del jugador que tiene el turno actual. */
@@ -40,9 +40,10 @@ public class Arbitro {
 	private Caja cajaNegra;
 
 	/**
-	 * Constructor del Arbitro. Inicializa el tablero, el número de jugadas y las
-	 * cajas para las piezas capturadas.
-	 * 
+	 * Constructor que inicializa el árbitro con el tablero de juego y las cajas de
+	 * piezas capturadas. Establece el número de jugadas en 0 y asigna un color de
+	 * turno predeterminado.
+	 *
 	 * @param tablero El tablero de juego inicial
 	 */
 	public Arbitro(Tablero tablero) {
@@ -53,93 +54,80 @@ public class Arbitro {
 	}
 
 	/**
-	 * Cambia el turno al color contrario.
+	 * Cambia el turno de juego al color contrario al actual.
 	 */
 	public void cambiarTurno() {
 		turno = turno.consultarContrario();
 	}
-	
+
+	/**
+	 * Crea un clon del árbitro con el mismo estado (tablero, número de jugadas, y
+	 * cajas de piezas capturadas).
+	 *
+	 * @return Un nuevo objeto Arbitro con el mismo estado que el actual.
+	 */
 	public Arbitro clonar() {
 		Arbitro clon = new Arbitro(this.tablero);
-		clon.turno=this.turno;
-		clon.tablero=this.tablero;
-		clon.numeroJugadas=this.numeroJugadas;
-		clon.cajaBlanca=this.cajaBlanca;
-		clon.cajaNegra=this.cajaNegra;
+		clon.turno = this.turno;
+		clon.tablero = this.tablero;
+		clon.numeroJugadas = this.numeroJugadas;
+		clon.cajaBlanca = this.cajaBlanca;
+		clon.cajaNegra = this.cajaNegra;
 		return clon;
 	}
 
-    /**
-     * Coloca las piezas en el tablero en las coordenadas especificadas y establece
-     * el turno actual.
-     * 
-     * @param piezas      Lista de piezas a colocar
-     * @param coordenadas Lista de coordenadas donde colocar las piezas
-     * @param turnoActual Color del turno inicial
-     */
-    public void colocarPiezas(List<Pieza> piezas, List<Coordenada> coordenadas, Color turnoActual) {
-        this.turno = turnoActual;
-        for (int i = 0; i < piezas.size(); i++) {
-            tablero.colocar(piezas.get(i), coordenadas.get(i));
-        }
-    }
+	/**
+	 * Coloca las piezas en el tablero en las coordenadas especificadas y establece
+	 * el turno inicial.
+	 *
+	 * @param piezas      Lista de piezas a colocar en el tablero.
+	 * @param coordenadas Lista de coordenadas donde colocar las piezas.
+	 * @param turnoActual El color del jugador que comienza el turno.
+	 */
+	public void colocarPiezas(List<Pieza> piezas, List<Coordenada> coordenadas, Color turnoActual) {
+		this.turno = turnoActual;
+		for (int i = 0; i < piezas.size(); i++) {
+			tablero.colocar(piezas.get(i), coordenadas.get(i));
+		}
+	}
 
 	/**
-	 * Coloca las piezas en la configuración inicial del juego.
+	 * Coloca las piezas en la configuración inicial del juego, con el turno de
+	 * inicio en BLANCO.
 	 */
-    public void colocarPiezasConfiguracionInicial() {
-        List<Pieza> piezas = Arrays.asList(
-                new Pieza(TipoPieza.REINA, Color.BLANCO),
-                new Pieza(TipoPieza.REINA, Color.NEGRO),
-                new Pieza(TipoPieza.PEON, Color.BLANCO),
-                new Pieza(TipoPieza.PEON, Color.BLANCO),
-                new Pieza(TipoPieza.PEON, Color.BLANCO),
-                new Pieza(TipoPieza.PEON, Color.BLANCO),
-                new Pieza(TipoPieza.PEON, Color.BLANCO),
-                new Pieza(TipoPieza.PEON, Color.BLANCO),
-                new Pieza(TipoPieza.PEON, Color.NEGRO),
-                new Pieza(TipoPieza.PEON, Color.NEGRO),
-                new Pieza(TipoPieza.PEON, Color.NEGRO),
-                new Pieza(TipoPieza.PEON, Color.NEGRO),
-                new Pieza(TipoPieza.PEON, Color.NEGRO),
-                new Pieza(TipoPieza.PEON, Color.NEGRO)
-        );
+	public void colocarPiezasConfiguracionInicial() {
+		List<Pieza> piezas = Arrays.asList(new Pieza(TipoPieza.REINA, Color.BLANCO),
+				new Pieza(TipoPieza.REINA, Color.NEGRO), new Pieza(TipoPieza.PEON, Color.BLANCO),
+				new Pieza(TipoPieza.PEON, Color.BLANCO), new Pieza(TipoPieza.PEON, Color.BLANCO),
+				new Pieza(TipoPieza.PEON, Color.BLANCO), new Pieza(TipoPieza.PEON, Color.BLANCO),
+				new Pieza(TipoPieza.PEON, Color.BLANCO), new Pieza(TipoPieza.PEON, Color.NEGRO),
+				new Pieza(TipoPieza.PEON, Color.NEGRO), new Pieza(TipoPieza.PEON, Color.NEGRO),
+				new Pieza(TipoPieza.PEON, Color.NEGRO), new Pieza(TipoPieza.PEON, Color.NEGRO),
+				new Pieza(TipoPieza.PEON, Color.NEGRO));
 
-        List<Coordenada> coordenadas = Arrays.asList(
-                new Coordenada(0, 0),
-                new Coordenada(6, 6),
-                new Coordenada(1, 0), 
-                new Coordenada(2, 0), 
-                new Coordenada(3, 0), 
-                new Coordenada(0, 1), 
-                new Coordenada(0, 2),
-                new Coordenada(0, 3),
-                new Coordenada(3, 6), 
-                new Coordenada(4, 6), 
-                new Coordenada(5, 6), 
-                new Coordenada(6, 3),
-                new Coordenada(6, 4), 
-                new Coordenada(6, 5)
-        );
-        colocarPiezas(piezas, coordenadas, Color.BLANCO);       
-        numeroJugadas = 0;
-        this.turno = Color.BLANCO;
-    }
+		List<Coordenada> coordenadas = Arrays.asList(new Coordenada(0, 0), new Coordenada(6, 6), new Coordenada(1, 0),
+				new Coordenada(2, 0), new Coordenada(3, 0), new Coordenada(0, 1), new Coordenada(0, 2),
+				new Coordenada(0, 3), new Coordenada(3, 6), new Coordenada(4, 6), new Coordenada(5, 6),
+				new Coordenada(6, 3), new Coordenada(6, 4), new Coordenada(6, 5));
+		colocarPiezas(piezas, coordenadas, Color.BLANCO);
+		numeroJugadas = 0;
+		this.turno = Color.BLANCO;
+	}
 
 	/**
 	 * Consulta la caja de piezas capturadas para un color específico.
 	 * 
-	 * @param color Color de la caja a consultar
-	 * @return La caja de piezas capturadas del color especificado
+	 * @param color El color de la caja de piezas capturadas a consultar.
+	 * @return La caja correspondiente al color.
 	 */
 	public Caja consultarCaja(Color color) {
 		return (color == Color.BLANCO) ? cajaBlanca : cajaNegra;
 	}
 
 	/**
-	 * Consulta el número actual de jugadas realizadas.
+	 * Consulta el número de jugadas realizadas en la partida.
 	 * 
-	 * @return El número de jugadas
+	 * @return El número de jugadas realizadas.
 	 */
 	public int consultarNumeroJugada() {
 		return numeroJugadas;
@@ -148,26 +136,26 @@ public class Arbitro {
 	/**
 	 * Consulta el estado actual del tablero.
 	 * 
-	 * @return Una copia del tablero actual
+	 * @return Una copia del tablero actual.
 	 */
 	public Tablero consultarTablero() {
 		return tablero.clonar();
 	}
 
 	/**
-	 * Consulta el color del turno actual.
+	 * Consulta el color del jugador que tiene el turno actual.
 	 * 
-	 * @return El color del turno actual
+	 * @return El color del turno actual.
 	 */
 	public Color consultarTurno() {
 		return turno;
 	}
 
 	/**
-	 * Determina el color ganador si la partida ha finalizado.
+	 * Determina el color del ganador si la partida ha finalizado.
 	 * 
-	 * @return El color ganador, o null si no hay ganador o la partida no ha
-	 *         terminado
+	 * @return El color del ganador, o null si la partida no ha terminado o no tiene
+	 *         ganador.
 	 */
 	public Color consultarTurnoGanador() {
 		Color ganador = null;
@@ -196,7 +184,7 @@ public class Arbitro {
 	/**
 	 * Realiza un movimiento de empuje en el tablero.
 	 * 
-	 * @param jugada La jugada a realizar
+	 * @param jugada La jugada que debe realizarse.
 	 */
 	public void empujar(Jugada jugada) {
 		numeroJugadas++;
@@ -204,7 +192,7 @@ public class Arbitro {
 		Celda origen = jugada.origen();
 		Celda destino = jugada.destino();
 		Coordenada coordOrigen = origen.consultarCoordenada();
-		Coordenada coordDestino = destino.consultarCoordenada();	
+		Coordenada coordDestino = destino.consultarCoordenada();
 		Pieza pieza = tablero.consultarCelda(coordOrigen).consultarPieza();
 		Sentido sentido = tableroCons.calcularSentido(coordOrigen, coordDestino);
 
@@ -218,15 +206,16 @@ public class Arbitro {
 			}
 		}
 		tablero.colocar(pieza, coordDestino);
-		}
+	}
 
 	/**
-	 * Método privado auxiliar para mover una pieza en el tablero.
+	 * Ejecuta un movimiento para una pieza en la dirección indicada (horizontal o
+	 * vertical).
 	 * 
-	 * @param origen     Coordenada de origen
-	 * @param destino    Coordenada de destino
-	 * @param sentido    Sentido del movimiento
-	 * @param esVertical Indica si el movimiento es vertical
+	 * @param origen       La coordenada de origen.
+	 * @param destino      La coordenada de destino.
+	 * @param sentido      El sentido del movimiento (horizontal o vertical).
+	 * @param esVertical Si el movimiento es horizontal.
 	 */
 	private void moverPieza(Coordenada origen, Coordenada destino, Sentido sentido, boolean esVertical) {
 		int origenPos = esVertical ? origen.fila() : origen.columna();
@@ -253,12 +242,12 @@ public class Arbitro {
 			}
 		}
 	}
-	
+
 	/**
 	 * Verifica si un movimiento es legal según las reglas del juego.
 	 * 
-	 * @param jugada La jugada a verificar
-	 * @return true si el movimiento es legal, false en caso contrario
+	 * @param jugada La jugada a verificar.
+	 * @return true si el movimiento es legal, false en caso contrario.
 	 */
 	public boolean esMovimientoLegal(Jugada jugada) {
 		Coordenada origen = jugada.origen().consultarCoordenada();
@@ -273,13 +262,15 @@ public class Arbitro {
 					if (sentido == null) {
 						return false;
 					}
-					if (sentido.consultarDesplazamientoEnFilas() == 0) { // Movimiento Horizontal
+					// Movimiento Horizontal
+					if (sentido.consultarDesplazamientoEnFilas() == 0) {
 						if (tableroCons.consultarDistanciaEnHorizontal(origen, destino) == tableroCons
 								.consultarNumeroPiezasEnVertical(origen)) {
 							result = true;
 						}
 					}
-					if (sentido.consultarDesplazamientoEnColumnas() == 0) { // Movimiento Vertical
+					// Movimiento Vertical
+					if (sentido.consultarDesplazamientoEnColumnas() == 0) {
 						if (tableroCons.consultarDistanciaEnVertical(origen, destino) == tableroCons
 								.consultarNumeroPiezasEnHorizontal(origen)) {
 							result = true;
@@ -301,7 +292,15 @@ public class Arbitro {
 		return !tableroCons.hayReina(Color.BLANCO) || !tableroCons.hayReina(Color.NEGRO)
 				|| tableroCons.estaReinaEnElCentro(Color.BLANCO) || tableroCons.estaReinaEnElCentro(Color.NEGRO);
 	}
-	
+
+	/**
+	 * Compara esta instancia de Arbitro con otro objeto para determinar si son
+	 * iguales. Dos árbitros se consideran iguales si tienen los mismos atributos
+	 * (cajas, tablero, número de jugadas y turno).
+	 *
+	 * @param obj El objeto con el que se compara
+	 * @return true si los objetos son iguales, false en caso contrario
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -316,13 +315,20 @@ public class Arbitro {
 				&& turno == other.turno;
 	}
 
+	/**
+	 * Devuelve el valor hash de este Arbitro. El valor hash se calcula a partir de
+	 * sus atributos: cajaBlanca, cajaNegra, número de jugadas, tablero y turno.
+	 * 
+	 * @return El valor del hash de este Arbitro
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(cajaBlanca, cajaNegra, numeroJugadas, tablero, turno);
 	}
 
 	/**
-	 * Genera una representación en cadena del estado actual del Arbitro.
+	 * Genera una representación en cadena del estado actual del Arbitro, mostrando
+	 * los valores de turno, tablero, número de jugadas, caja blanca y caja negra.
 	 * 
 	 * @return Una cadena que representa el estado del Arbitro
 	 */

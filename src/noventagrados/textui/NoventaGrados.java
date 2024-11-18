@@ -27,6 +27,8 @@ import noventagrados.control.undo.MaquinaDelTiempoConJugadas;
  * invocaciones a métodos del árbitro.
  *
  * @author <a href="rmartico@ubu.es">Raúl Marticorena</a>
+ * @author Víctor Vidal Vivanco
+ * @author Guillermo López de Arechavaleta Zapatero
  * @since 1.0
  * @version 1.0.1
  * @see noventagrados.modelo
@@ -65,9 +67,11 @@ public class NoventaGrados {
 	}
 
 	/**
-	 * Método raíz con el algoritmo principal en modo texto.
+	 * Método principal que ejecuta la lógica del juego en modo texto, gestionando
+	 * configuración, jugadas y flujo de la partida.
 	 * 
-	 * @param args argumentos de entrada en línea de comandos
+	 * @param args argumentos de entrada en línea de comandos para configurar las
+	 *             opciones de la partida.
 	 */
 	public static void main(String[] args) {
 		mostrarMensajeBienvenida(); // Muestra el mensaje de bienvenida
@@ -80,7 +84,7 @@ public class NoventaGrados {
 			mostrarTablero();
 			String jugadaTexto = "";
 			boolean partidaEnCurso = true;
-			
+
 			while (partidaEnCurso) {
 				jugadaTexto = recogerTextoDeJugadaPorTeclado();
 

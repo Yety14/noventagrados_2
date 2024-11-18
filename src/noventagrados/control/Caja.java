@@ -7,6 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Clase que representa una caja para almacenar piezas capturadas de un color
+ * específico. Cada caja tiene una capacidad máxima y solo puede contener piezas
+ * de un color.
+ * 
+ * @author Víctor Vidal Vivanco
+ * @author Guillermo López de Arechavaleta Zapatero
+ * @version 1.0
+ * @since 1.0
+ */
 public class Caja {
 
 	/** Lista que almacena las piezas capturadas en esta caja. */
@@ -29,9 +39,11 @@ public class Caja {
 	}
 
 	/**
-	 * Añade una pieza a la caja si hay espacio y coincide con el color de la caja.
+	 * Añade una pieza a la caja si hay espacio disponible y coincide con el color
+	 * de la caja. Si no hay espacio o el color de la pieza no coincide, no se
+	 * realiza ninguna acción.
 	 *
-	 * @param pieza La pieza a añadir
+	 * @param pieza La pieza a añadir a la caja
 	 */
 	public void añadir(Pieza pieza) {
 		if (piezas.size() < CAPACIDAD_MAXIMA && pieza.consultarColor() == this.color) {
@@ -40,7 +52,8 @@ public class Caja {
 	}
 
 	/**
-	 * Crea y devuelve una copia profunda de la caja.
+	 * Crea y devuelve una copia profunda de la caja, incluyendo sus piezas. La
+	 * copia tiene el mismo color y una lista separada con duplicados de las piezas.
 	 *
 	 * @return Una nueva instancia de Caja con las mismas propiedades y piezas
 	 */
@@ -95,6 +108,13 @@ public class Caja {
 		return count;
 	}
 
+	/**
+	 * Compara esta caja con otro objeto. Dos cajas son iguales si tienen el mismo
+	 * color y las mismas piezas en la misma cantidad.
+	 *
+	 * @param obj El objeto con el que se compara
+	 * @return true si las cajas son iguales, false en caso contrario
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -105,11 +125,23 @@ public class Caja {
 		return Objects.equals(piezas, other.piezas) && color == other.color;
 	}
 
+	/**
+	 * Devuelve el código hash de esta caja. El hash se genera a partir de las
+	 * piezas y el color de la caja.
+	 *
+	 * @return El valor del hash de esta caja
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(piezas, color);
 	}
 
+	/**
+	 * Devuelve una representación en cadena de la caja, incluyendo las piezas y el
+	 * color.
+	 *
+	 * @return Una cadena representando esta caja
+	 */
 	@Override
 	public String toString() {
 		return "Caja [piezas=" + piezas + ", color=" + color + "]";

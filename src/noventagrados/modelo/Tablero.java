@@ -42,7 +42,7 @@ public class Tablero {
 			celdas.add(filaCeldas);
 		}
 	}
-	
+
 	/**
 	 * Genera una representación textual del tablero.
 	 * 
@@ -107,8 +107,8 @@ public class Tablero {
 	 *         coordenada es inválida
 	 */
 	public Celda consultarCelda(Coordenada coordenada) {
-	 if (estanEnTablero(coordenada)) {
-			return celdas.get(coordenada.fila()).get(coordenada.columna()).clonar(); // devuelve un clon en profundidad
+		if (estanEnTablero(coordenada)) {
+			return celdas.get(coordenada.fila()).get(coordenada.columna()).clonar();
 		}
 		return null;
 	}
@@ -119,13 +119,13 @@ public class Tablero {
 	 * @return un array de Celda con clones de todas las celdas
 	 */
 	public List<Celda> consultarCeldas() {
-	    List<Celda> celdasList = new ArrayList<>(FILAS * COLUMNAS);
-	    for (int fila = 0; fila < FILAS; fila++) {
-	        for (int columna = 0; columna < COLUMNAS; columna++) {
-	            celdasList.add(celdas.get(fila).get(columna).clonar()); // Clona cada celda antes de añadir
-	        }
-	    }
-	    return celdasList;
+		List<Celda> celdasList = new ArrayList<>(FILAS * COLUMNAS);
+		for (int fila = 0; fila < FILAS; fila++) {
+			for (int columna = 0; columna < COLUMNAS; columna++) {
+				celdasList.add(celdas.get(fila).get(columna).clonar());
+			}
+		}
+		return celdasList;
 	}
 
 	/**
