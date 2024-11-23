@@ -67,13 +67,12 @@ public class Arbitro {
 	 * @return Un nuevo objeto Arbitro con el mismo estado que el actual.
 	 */
 	public Arbitro clonar() {
-		Arbitro clon = new Arbitro(this.tablero);
-		clon.turno = this.turno;
-		clon.tablero = this.tablero;
-		clon.numeroJugadas = this.numeroJugadas;
-		clon.cajaBlanca = this.cajaBlanca;
-		clon.cajaNegra = this.cajaNegra;
-		return clon;
+	    Arbitro clon = new Arbitro(this.tablero.clonar());
+	    clon.turno = this.turno;
+	    clon.numeroJugadas = this.numeroJugadas;
+	    clon.cajaBlanca = this.cajaBlanca.clonar();
+	    clon.cajaNegra = this.cajaNegra.clonar();
+	    return clon;
 	}
 
 	/**
