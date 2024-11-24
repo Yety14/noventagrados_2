@@ -1,12 +1,11 @@
 package noventagrados.control.undo;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import noventagrados.control.Arbitro;
 import noventagrados.modelo.Jugada;
 import noventagrados.modelo.Tablero;
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase que maneja la funcionalidad de deshacer y rehacer acciones en un juego,
@@ -22,9 +21,6 @@ public class MaquinaDelTiempoConArbitros extends MecanismoDeDeshacerAbstracto {
 	/** Historial de árbitros en diferentes estados. */
 	private List<Arbitro> historicoArbitros;
 
-	/** El árbitros de la jugada. */
-	private Arbitro arbitroActual;
-
 	/**
 	 * Constructor de la MaquinaDelTiempoConArbitros. Inicializa el historial de
 	 * árbitros y la fecha de inicio. Configura el árbitro inicial para comenzar la
@@ -35,9 +31,6 @@ public class MaquinaDelTiempoConArbitros extends MecanismoDeDeshacerAbstracto {
 	public MaquinaDelTiempoConArbitros(Date fecha) {
 		super(fecha);
 		this.historicoArbitros = new ArrayList<>();
-		this.arbitroActual = new Arbitro(new Tablero());
-		this.arbitroActual.colocarPiezasConfiguracionInicial();
-		this.historicoArbitros.add(arbitroActual.clonar());
 	}
 
 	/**
@@ -47,7 +40,14 @@ public class MaquinaDelTiempoConArbitros extends MecanismoDeDeshacerAbstracto {
 	 */
 	@Override
 	public Arbitro consultarArbitroActual() {
-		return arbitroActual.clonar();
+		if (historicoArbitros.isEmpty()) {
+			Arbitro arbitroInicial = new Arbitro(new Tablero());
+			arbitroInicial.colocarPiezasConfiguracionInicial();
+			return arbitroInicial;
+		}
+
+		return historicoArbitros.getLast().clonar(); 
+
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class MaquinaDelTiempoConArbitros extends MecanismoDeDeshacerAbstracto {
 	 */
 	@Override
 	public int consultarNumeroJugadasEnHistorico() {
-		return historicoArbitros.size() - 1;
+		return historicoArbitros.size();
 	}
 
 	/**
@@ -66,11 +66,10 @@ public class MaquinaDelTiempoConArbitros extends MecanismoDeDeshacerAbstracto {
 	 */
 	@Override
 	public void deshacerJugada() {
-		if (historicoArbitros.size() >= 2 && !arbitroActual.estaFinalizadaPartida()) {
-			historicoArbitros.remove(consultarNumeroJugadasEnHistorico());
-			arbitroActual.cambiarTurno();
-			arbitroActual = historicoArbitros.get(consultarNumeroJugadasEnHistorico()).clonar();
-			
+
+		if (!historicoArbitros.isEmpty()) {
+			historicoArbitros.remove(consultarNumeroJugadasEnHistorico()-1);
+			consultarArbitroActual().cambiarTurno();
 		}
 	}
 
@@ -82,9 +81,10 @@ public class MaquinaDelTiempoConArbitros extends MecanismoDeDeshacerAbstracto {
 	 */
 	@Override
 	public void hacerJugada(Jugada jugada) {
-		arbitroActual.empujar(jugada);
-		arbitroActual.cambiarTurno();
-		historicoArbitros.add(arbitroActual.clonar());
+		Arbitro estadoActual = consultarArbitroActual();
+		estadoActual.empujar(jugada);
+		estadoActual.cambiarTurno();
+		historicoArbitros.add(estadoActual);
 	}
-	
-}//
+
+}
