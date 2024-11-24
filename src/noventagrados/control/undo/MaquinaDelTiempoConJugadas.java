@@ -28,9 +28,6 @@ public class MaquinaDelTiempoConJugadas extends MecanismoDeDeshacerAbstracto {
 	/** Historial de los tableros correspondientes a cada jugada realizada. */
 	private List<Tablero> historicoTableros;
 
-	/** Fecha de inicio del juego. */
-	private Date fechaInicio;
-
 	/**
 	 * Constructor que inicializa el historial de jugadas, tableros y la fecha de
 	 * inicio.
@@ -41,7 +38,6 @@ public class MaquinaDelTiempoConJugadas extends MecanismoDeDeshacerAbstracto {
 		super(fecha);
 		this.historicoJugadas = new ArrayList<>();
 		this.historicoTableros = new ArrayList<>();
-		this.fechaInicio = fecha;
 	}
 
 	/**
@@ -124,13 +120,4 @@ public class MaquinaDelTiempoConJugadas extends MecanismoDeDeshacerAbstracto {
 		historicoJugadas.add(jugada);
 	}
 
-	/**
-	 * Obtiene la fecha de inicio de la partida.
-	 * 
-	 * @return La fecha de inicio de la partida
-	 */
-	@Override
-	public Date obtenerFechaInicio() {
-		return fechaInicio;
-	}
 }
