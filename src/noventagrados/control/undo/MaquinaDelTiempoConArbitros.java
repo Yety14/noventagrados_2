@@ -46,7 +46,7 @@ public class MaquinaDelTiempoConArbitros extends MecanismoDeDeshacerAbstracto {
 			return arbitroInicial;
 		}
 
-		return historicoArbitros.getLast().clonar(); 
+		return historicoArbitros.get(consultarNumeroJugadasEnHistorico() -1).clonar(); 
 
 	}
 
