@@ -1,4 +1,4 @@
 @echo off
 
-REM Ejecutar modo texto
+REM Ejecutar el programa en modo texto
 java -cp bin noventagrados.textui.NoventaGrados

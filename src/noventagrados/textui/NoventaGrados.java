@@ -83,14 +83,14 @@ public class NoventaGrados {
 			inicializarPartida();
 			mostrarTablero();
 			String jugadaTexto = "";
-			boolean partidaEnCurso = true;
+			boolean partidaFinalizada = false;
 
-			while (partidaEnCurso) {
+			while (!partidaFinalizada) {
 				jugadaTexto = recogerTextoDeJugadaPorTeclado();
 
 				if (comprobarSalir(jugadaTexto)) {
 					finalizarPartida();
-					partidaEnCurso = false;
+					partidaFinalizada = true;
 				} else if (comprobarDeshacer(jugadaTexto)) {
 					deshacerJugada();
 				} else {
@@ -169,12 +169,25 @@ public class NoventaGrados {
 	 *                                     no es correcto
 	 */
 	private static void extraerModoDeshacer(String[] args) throws OpcionNoDisponibleException {
+
 		if (args.length == 0) {
+			System.out.println("\n\t\t\t\tModo deshacer con jugadas");
 			configuracion = "jugadas";
 		} else {
 			configuracion = args[0];
+			switch (args[0]) {
+			case "arbitros":
+				System.out.println("\n\t\t\t\tModo deshacer con arbitros");
+				configuracion = "arbitros";
+				break;
+			case "jugadas":
+				System.out.println("\n\t\t\t\tModo deshacer con jugadas");
+				configuracion = "jugadas";
+				break;
+			default:
+				mostrarErrorSeleccionandoModo();
+			}
 		}
-
 	}
 
 	/**
