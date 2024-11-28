@@ -77,7 +77,6 @@ public class NoventaGrados {
 	public static void main(String[] args) {
 		mostrarMensajeBienvenida();
 		try {
-			configuracion = "";
 			extraerModoDeshacer(args);
 			seleccionarMecanismoDeshacer(configuracion);
 			inicializarPartida();
@@ -98,17 +97,14 @@ public class NoventaGrados {
 						finalizarPartida();
 						mostrarGanador();
 						inicializarPartida();
-						continue;
 					}
 					if (!validarFormato(jugadaTexto)) {
 						mostrarErrorEnFormatoDeEntrada();
-						continue;
 					}
 
 					Jugada jugada = extraerJugada(jugadaTexto);
 					if (!esLegal(jugada)) {
 						mostrarErrorPorMovimientoIlegal(jugadaTexto);
-						continue;
 					}
 					realizarEmpujón(jugada);
 					mostrarTablero();

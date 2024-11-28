@@ -3,14 +3,14 @@
 REM Crear carpeta doc si no existe
 if not exist "doc" mkdir doc
 
-REM Documentar todo el código fuente y los subpaquetes, redirigiendo la salida para ocultar mensajes innecesarios
-javadoc -d doc -sourcepath src -subpackages noventagrados >nul 2>&1
+REM Documentar todo el código fuente y los subpaquetes, incluyendo miembros privados y autores
+javadoc -cp "lib" -d doc -sourcepath src -subpackages noventagrados -private -author -version -tag custom:cm:"Custom Tag Description"
 
-REM Comprobar el estado de la compilación
+REM Comprobar el estado de la generación de la documentación
 if %errorlevel% equ 0 (
 	echo "Documentacion finalizada."
 ) else (
-	echo "Documentacion erronea."
+	echo "Documentacion errónea."
 )
 
 pause

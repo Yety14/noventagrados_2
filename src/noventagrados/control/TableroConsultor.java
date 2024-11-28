@@ -1,6 +1,9 @@
 package noventagrados.control;
 
 import noventagrados.modelo.Tablero;
+
+import java.util.List;
+
 import noventagrados.modelo.Celda;
 import noventagrados.util.Sentido;
 import noventagrados.util.Coordenada;
@@ -90,14 +93,12 @@ public class TableroConsultor<T extends Tablero> {
 	 */
 	public int consultarNumeroPiezas(TipoPieza tipoPieza, Color color) {
 		int count = 0;
-		for (int fila = 0; fila < tablero.consultarNumeroFilas(); fila++) {
-			for (int columna = 0; columna < tablero.consultarNumeroColumnas(); columna++) {
-				Celda celda = tablero.consultarCelda(new Coordenada(fila, columna));
-				if (!celda.estaVacia()) {
-					Pieza pieza = celda.consultarPieza();
-					if (pieza.consultarTipoPieza() == tipoPieza && pieza.consultarColor() == color) {
-						count++;
-					}
+		List<Celda> celdasList = tablero.consultarCeldas();
+		for (Celda celda : celdasList) {
+			if (!celda.estaVacia()) {
+				Pieza pieza = celda.consultarPieza();
+				if (pieza.consultarTipoPieza() == tipoPieza && pieza.consultarColor() == color) {
+					count++;
 				}
 			}
 		}
