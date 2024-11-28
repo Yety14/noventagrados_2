@@ -83,33 +83,7 @@ public class NoventaGrados {
 			inicializarPartida();
 			mostrarTablero();
 			boolean partidaFinalizada = false;
-			while (!partidaFinalizada) {
-				String jugadaTexto = recogerTextoDeJugadaPorTeclado();
-				if (comprobarSalir(jugadaTexto)) {
-					finalizarPartida();
-					partidaFinalizada = true;
-				} else if (comprobarDeshacer(jugadaTexto)) {
-					deshacerJugada();
-				} else {
-					if (!validarFormato(jugadaTexto)) {
-						mostrarErrorEnFormatoDeEntrada();
-					}
-					Jugada jugada = extraerJugada(jugadaTexto);
-					if (!esLegal(jugada)) {
-						mostrarErrorPorMovimientoIlegal(jugadaTexto);
-					} else {
-						realizarEmpujón(jugada);
-						cambiarTurnoPartida();
-					}
-					mostrarTablero();
-					if (comprobarFinalizacionPartida()) {
-
-						finalizarPartida();
-						mostrarGanador();
-						partidaFinalizada = true;
-					}
-				}
-			}
+			juego(partidaFinalizada);
 		} catch (OpcionNoDisponibleException ex) {
 			mostrarErrorSeleccionandoModo();
 		} catch (Exception ex) {
@@ -117,6 +91,42 @@ public class NoventaGrados {
 		} finally {
 			if (scanner == null) {
 				scanner.close();
+			}
+		}
+	}
+
+	/**
+	 * Ejecuta la lógica principal del juego en modo texto, gestionando las jugadas,
+	 * validaciones y cambios de turno hasta que la partida finaliza. Permite
+	 * deshacer jugadas y muestra el resultado al final del juego.
+	 * 
+	 * @param partidaFinalizada bandera que indica si la partida ha terminado o no.
+	 */
+	private static void juego(boolean partidaFinalizada) {
+		while (!partidaFinalizada) {
+			String jugadaTexto = recogerTextoDeJugadaPorTeclado();
+			if (comprobarSalir(jugadaTexto)) {
+				finalizarPartida();
+				partidaFinalizada = true;
+			} else if (comprobarDeshacer(jugadaTexto)) {
+				deshacerJugada();
+			} else {
+				if (!validarFormato(jugadaTexto)) {
+					mostrarErrorEnFormatoDeEntrada();
+				}
+				Jugada jugada = extraerJugada(jugadaTexto);
+				if (!esLegal(jugada)) {
+					mostrarErrorPorMovimientoIlegal(jugadaTexto);
+				} else {
+					realizarEmpujón(jugada);
+					cambiarTurnoPartida();
+				}
+				mostrarTablero();
+				if (comprobarFinalizacionPartida()) {
+					finalizarPartida();
+					mostrarGanador();
+					partidaFinalizada = true;
+				}
 			}
 		}
 	}
