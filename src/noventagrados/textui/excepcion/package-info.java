@@ -10,7 +10,11 @@
  *         serialVersionUID para garantizar la compatibilidad en la
  *         serialización.
  * 
- *         2º Grado Ingeniería informática Universidad de Burgos Metodología de
- *         la Programación
+ *         Proyecto desarrollado como parte de la asignatura de Metodología de la 
+ * 		   Programación, 2º Grado Ingeniería Informática, Universidad de Burgos.
+ * 
+ * @since 1.0
+ * @see noventagrados.textui.exception.OpcionNoDisponibleException
+ * 
  */
 package noventagrados.textui.excepcion;

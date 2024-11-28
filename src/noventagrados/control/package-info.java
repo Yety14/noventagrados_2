@@ -9,7 +9,13 @@
  *         clases para manejar las piezas expulsadas y realizar consultas
  *         complejas sobre el estado del tablero.
  * 
- *         2º Grado Ingeniería informática Universidad de Burgos Metodología de
- *         la Programación
+ *         Proyecto desarrollado como parte de la asignatura de Metodología de la 
+ * 		   Programación, 2º Grado Ingeniería Informática, Universidad de Burgos.
+ * 
+ * @since 1.0
+ * @see noventagrados.control.Arbitro
+ * @see noventagrados.control.Caja
+ * @see noventagrados.control.TableroConsultor
+ * 
  */
 package noventagrados.control;

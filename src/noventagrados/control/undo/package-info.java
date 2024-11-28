@@ -10,7 +10,14 @@
  *         almacenamiento de clones de árbitros en diferentes estados de la
  *         partida.
  * 
- *         2º Grado Ingeniería informática Universidad de Burgos Metodología de
- *         la Programación
+ *         Proyecto desarrollado como parte de la asignatura de Metodología de la 
+ * 		   Programación, 2º Grado Ingeniería Informática, Universidad de Burgos.
+ * 
+ * @since 1.0
+ * @see noventagrados.control.undo.MaquinaDelTiempoConArbitros
+ * @see noventagrados.control.undo.MaquinaDelTiempoConJugadas
+ * @see noventagrados.control.undo.MecanismoDeDeshacer
+ * @see noventagrados.control.undo.MecanismoDeDeshacerAbstracto
+ * 
  */
 package noventagrados.control.undo;

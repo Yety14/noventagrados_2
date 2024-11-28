@@ -10,7 +10,14 @@
  *         piezas de diferentes tipos, jugadas entre coordenadas y un tablero
  *         dinámico implementado con listas anidadas.
  * 
- *         2º Grado Ingeniería informática Universidad de Burgos Metodología de
- *         la Programación
+ *        Proyecto desarrollado como parte de la asignatura de Metodología de la 
+ * 		  Programación, 2º Grado Ingeniería Informática, Universidad de Burgos.
+ * 
+ * @since 1.0
+ * @see noventagrados.modelo.Celda
+ * @see noventagrados.modelo.Jugada
+ * @see noventagrados.modelo.Pieza
+ * @see noventagrados.modelo.Tablero
+ * 
  */
 package noventagrados.modelo;

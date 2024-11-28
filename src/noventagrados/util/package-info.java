@@ -8,7 +8,14 @@
  *         piezas, proporcionando la base para la lógica del juego y sus
  *         operaciones básicas.
  * 
- *         2º Grado Ingeniería informática Universidad de Burgos Metodología de
- *         la Programación
+ *        Proyecto desarrollado como parte de la asignatura de Metodología de la 
+ * 		  Programación, 2º Grado Ingeniería Informática, Universidad de Burgos.
+ * 
+ * @since 1.0
+ * @see noventagrados.util.Color
+ * @see noventagrados.util.Cooordenada
+ * @see noventagrados.util.Sentido
+ * @see noventagrados.util.TipoPieza
+ * 
  */
 package noventagrados.util;
