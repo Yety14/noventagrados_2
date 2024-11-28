@@ -18,7 +18,8 @@ import java.util.Objects;
  * realizadas y determinar el ganador del juego.
  * 
  * @author <a href="vvv1005@alu.ubu.es">Víctor Vidal Vivanco</a>
- * @author <a href="glz1001@alu.ubu.es">Guillermo López de Arechavaleta Zapatero</a>
+ * @author <a href="glz1001@alu.ubu.es">Guillermo López de Arechavaleta
+ *         Zapatero</a>
  * @version 1.0
  * @since 1.0
  */
@@ -67,12 +68,12 @@ public class Arbitro {
 	 * @return Un nuevo objeto Arbitro con el mismo estado que el actual.
 	 */
 	public Arbitro clonar() {
-	    Arbitro clon = new Arbitro(this.tablero.clonar());
-	    clon.turno = this.turno;
-	    clon.numeroJugadas = this.numeroJugadas;
-	    clon.cajaBlanca = this.cajaBlanca.clonar();
-	    clon.cajaNegra = this.cajaNegra.clonar();
-	    return clon;
+		Arbitro clon = new Arbitro(this.tablero.clonar());
+		clon.turno = this.turno;
+		clon.numeroJugadas = this.numeroJugadas;
+		clon.cajaBlanca = this.cajaBlanca.clonar();
+		clon.cajaNegra = this.cajaNegra.clonar();
+		return clon;
 	}
 
 	/**
@@ -211,9 +212,9 @@ public class Arbitro {
 	 * Ejecuta un movimiento para una pieza en la dirección indicada (horizontal o
 	 * vertical).
 	 * 
-	 * @param origen       La coordenada de origen.
-	 * @param destino      La coordenada de destino.
-	 * @param sentido      El sentido del movimiento (horizontal o vertical).
+	 * @param origen     La coordenada de origen.
+	 * @param destino    La coordenada de destino.
+	 * @param sentido    El sentido del movimiento (horizontal o vertical).
 	 * @param esVertical Si el movimiento es horizontal.
 	 */
 	private void moverPieza(Coordenada origen, Coordenada destino, Sentido sentido, boolean esVertical) {

@@ -12,7 +12,8 @@ import java.util.List;
  * manteniendo un historial de árbitros, permitiendo regresar a estados previos.
  * 
  * @author <a href="vvv1005@alu.ubu.es">Víctor Vidal Vivanco</a>
- * @author <a href="glz1001@alu.ubu.es">Guillermo López de Arechavaleta Zapatero</a>
+ * @author <a href="glz1001@alu.ubu.es">Guillermo López de Arechavaleta
+ *         Zapatero</a>
  * @version 1.0
  * @since 1.0
  */
@@ -46,7 +47,7 @@ public class MaquinaDelTiempoConArbitros extends MecanismoDeDeshacerAbstracto {
 			return arbitroInicial;
 		}
 
-		return historicoArbitros.get(consultarNumeroJugadasEnHistorico() -1).clonar(); 
+		return historicoArbitros.get(consultarNumeroJugadasEnHistorico() - 1).clonar();
 
 	}
 
@@ -68,7 +69,7 @@ public class MaquinaDelTiempoConArbitros extends MecanismoDeDeshacerAbstracto {
 	public void deshacerJugada() {
 
 		if (!historicoArbitros.isEmpty()) {
-			historicoArbitros.remove(consultarNumeroJugadasEnHistorico()-1);
+			historicoArbitros.remove(consultarNumeroJugadasEnHistorico() - 1);
 			consultarArbitroActual().cambiarTurno();
 		}
 	}
