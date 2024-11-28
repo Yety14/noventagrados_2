@@ -28,10 +28,10 @@ public class OpcionNoDisponibleException extends java.lang.Exception {
 	 * Constructor que permite especificar un mensaje de error. Este constructor
 	 * llama al constructor de la clase base con el mensaje de error proporcionado.
 	 * 
-	 * @param message el mensaje de error
+	 * @param mensaje el mensaje de error
 	 */
-	public OpcionNoDisponibleException(String message) {
-		super(message);
+	public OpcionNoDisponibleException(String mensaje) {
+		super(mensaje);
 	}
 
 	/**
@@ -39,10 +39,10 @@ public class OpcionNoDisponibleException extends java.lang.Exception {
 	 * constructor llama al constructor de la clase base con la causa de la
 	 * excepción proporcionada.
 	 * 
-	 * @param cause la causa de la excepción
+	 * @param causa la causa de la excepción
 	 */
-	public OpcionNoDisponibleException(Throwable cause) {
-		super(cause);
+	public OpcionNoDisponibleException(Throwable causa) {
+		super(causa);
 	}
 
 	/**
@@ -50,10 +50,10 @@ public class OpcionNoDisponibleException extends java.lang.Exception {
 	 * llama al constructor de la clase base con el mensaje de error y la causa
 	 * proporcionados.
 	 * 
-	 * @param message el mensaje de error
-	 * @param cause   la causa de la excepción
+	 * @param mensaje el mensaje de error
+	 * @param causa   la causa de la excepción
 	 */
-	public OpcionNoDisponibleException(String message, Throwable cause) {
-		super(message, cause);
+	public OpcionNoDisponibleException(String mensaje, Throwable causa) {
+		super(mensaje, causa);
 	}
 }

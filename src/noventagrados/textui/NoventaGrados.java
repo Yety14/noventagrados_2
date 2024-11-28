@@ -81,44 +81,39 @@ public class NoventaGrados {
 			seleccionarMecanismoDeshacer(configuracion);
 			inicializarPartida();
 			mostrarTablero();
-			String jugadaTexto = "";
 			boolean partidaFinalizada = false;
-
 			while (!partidaFinalizada) {
-				jugadaTexto = recogerTextoDeJugadaPorTeclado();
-
+				String jugadaTexto = recogerTextoDeJugadaPorTeclado();
 				if (comprobarSalir(jugadaTexto)) {
 					finalizarPartida();
 					partidaFinalizada = true;
 				} else if (comprobarDeshacer(jugadaTexto)) {
 					deshacerJugada();
 				} else {
+					if (!validarFormato(jugadaTexto)) {
+						mostrarErrorEnFormatoDeEntrada();
+					}
+					Jugada jugada = extraerJugada(jugadaTexto);
+					if (!esLegal(jugada)) {
+						mostrarErrorPorMovimientoIlegal(jugadaTexto);
+					} else {
+						realizarEmpujón(jugada);
+						cambiarTurnoPartida();
+					}
 					if (comprobarFinalizacionPartida()) {
 						finalizarPartida();
 						mostrarGanador();
 						inicializarPartida();
 					}
-					if (!validarFormato(jugadaTexto)) {
-						mostrarErrorEnFormatoDeEntrada();
-					}
-
-					Jugada jugada = extraerJugada(jugadaTexto);
-					if (!esLegal(jugada)) {
-						mostrarErrorPorMovimientoIlegal(jugadaTexto);
-					}
-					realizarEmpujón(jugada);
 					mostrarTablero();
-					cambiarTurnoPartida();
 				}
 			}
-		} catch (OpcionNoDisponibleException e) {
+		} catch (OpcionNoDisponibleException ex) {
 			mostrarErrorSeleccionandoModo();
-		} catch (Exception e) {
-			mostrarErrorInterno((RuntimeException) e);
+		} catch (Exception ex) {
+			mostrarErrorInterno((RuntimeException) ex);
 		} finally {
-			if (scanner != null) {
-				scanner.close();
-			}
+			scanner.close();
 		}
 	}
 
@@ -170,17 +165,13 @@ public class NoventaGrados {
 			System.out.println("\n\t\t\t\tModo deshacer con jugadas");
 			configuracion = "jugadas";
 		} else {
-			configuracion = args[0];
-			switch (args[0]) {
-			case "arbitros":
+			if (args[0].equals("arbitros")) {
 				System.out.println("\n\t\t\t\tModo deshacer con arbitros");
 				configuracion = "arbitros";
-				break;
-			case "jugadas":
+			} else if (args[0].equals("jugadas")) {
 				System.out.println("\n\t\t\t\tModo deshacer con jugadas");
 				configuracion = "jugadas";
-				break;
-			default:
+			} else {
 				mostrarErrorSeleccionandoModo();
 			}
 		}
@@ -197,15 +188,13 @@ public class NoventaGrados {
 	 * @throws IllegalArgumentException mecanismo de deshacer no disponible
 	 */
 	private static void seleccionarMecanismoDeshacer(String configuracion) throws IllegalArgumentException {
-		switch (configuracion) {
-		case "jugadas":
+		if (configuracion == "jugadas") {
 			deshacer = new MaquinaDelTiempoConJugadas(new Date());
-			break;
-		case "arbitros":
+		} else if (configuracion == "arbitros") {
 			deshacer = new MaquinaDelTiempoConArbitros(new Date());
-			break;
-		default:
+		} else {
 			throw new IllegalArgumentException("Modo no definido:" + configuracion);
+
 		}
 	}
 
