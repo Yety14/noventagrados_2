@@ -100,12 +100,13 @@ public class NoventaGrados {
 						realizarEmpujón(jugada);
 						cambiarTurnoPartida();
 					}
-					if (comprobarFinalizacionPartida()) {
-						finalizarPartida();
-						mostrarGanador();
-						inicializarPartida();
-					}
 					mostrarTablero();
+					if (comprobarFinalizacionPartida()) {
+					
+					finalizarPartida();
+					mostrarGanador();
+					partidaFinalizada = true;
+					}
 				}
 			}
 		} catch (OpcionNoDisponibleException ex) {
