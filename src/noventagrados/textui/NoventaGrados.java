@@ -76,10 +76,10 @@ public class NoventaGrados {
 	 *             para definir el modo de deshacer y otras configuraciones.
 	 */
 	public static void main(String[] args) {
-		mostrarMensajeBienvenida();
 		try {
 			extraerModoDeshacer(args);
 			seleccionarMecanismoDeshacer(configuracion);
+			mostrarMensajeBienvenida();
 			inicializarPartida();
 			mostrarTablero();
 			boolean partidaFinalizada = false;
@@ -166,14 +166,11 @@ public class NoventaGrados {
 	private static void extraerModoDeshacer(String[] args) throws OpcionNoDisponibleException {
 
 		if (args.length == 0) {
-			System.out.println("\n\t\t\t\tModo deshacer con jugadas");
 			configuracion = "jugadas";
 		} else {
 			if (args[0].equals("arbitros")) {
-				System.out.println("\n\t\t\t\tModo deshacer con arbitros");
 				configuracion = "arbitros";
 			} else if (args[0].equals("jugadas")) {
-				System.out.println("\n\t\t\t\tModo deshacer con jugadas");
 				configuracion = "jugadas";
 			} else {
 				mostrarErrorSeleccionandoModo();
