@@ -7,8 +7,8 @@ import noventagrados.util.TipoPieza;
 /**
  * Representa una pieza del juego con un color y tipo.
  * 
- * @author Víctor Vidal Vivanco
- * @author Guillermo López de Arechavaleta Zapatero
+ * @author <a href="vvv1005@alu.ubu.es">Víctor Vidal Vivanco</a>
+ * @author <a href="glz1001@alu.ubu.es">Guillermo López de Arechavaleta Zapatero</a>
  * @version 1.0
  * @since 1.0
  */

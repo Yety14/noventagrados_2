@@ -27,8 +27,9 @@ import noventagrados.control.undo.MaquinaDelTiempoConJugadas;
  * invocaciones a métodos del árbitro.
  *
  * @author <a href="rmartico@ubu.es">Raúl Marticorena</a>
- * @author Víctor Vidal Vivanco
- * @author Guillermo López de Arechavaleta Zapatero
+ * @author <a href="vvv1005@alu.ubu.es">Víctor Vidal Vivanco</a>
+ * @author <a href="glz1001@alu.ubu.es">Guillermo López de Arechavaleta
+ *         Zapatero</a>
  * @since 1.0
  * @version 1.0.1
  * @see noventagrados.modelo
@@ -102,10 +103,10 @@ public class NoventaGrados {
 					}
 					mostrarTablero();
 					if (comprobarFinalizacionPartida()) {
-					
-					finalizarPartida();
-					mostrarGanador();
-					partidaFinalizada = true;
+
+						finalizarPartida();
+						mostrarGanador();
+						partidaFinalizada = true;
 					}
 				}
 			}
@@ -114,7 +115,9 @@ public class NoventaGrados {
 		} catch (Exception ex) {
 			mostrarErrorInterno((RuntimeException) ex);
 		} finally {
-			scanner.close();
+			if (scanner == null) {
+				scanner.close();
+			}
 		}
 	}
 

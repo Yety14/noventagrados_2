@@ -12,8 +12,8 @@ import java.util.Date;
  * como abstractos para que las clases concretas definan su comportamiento específico en relación
  * con el manejo de jugadas y el estado del árbitro.
  * 
- * @author Víctor Vidal Vivanco
- * @author Guillermo López de Arechavaleta Zapatero
+ * @author <a href="vvv1005@alu.ubu.es">Víctor Vidal Vivanco</a>
+ * @author <a href="glz1001@alu.ubu.es">Guillermo López de Arechavaleta Zapatero</a>
  * @version 1.0
  * @since 1.0
  */

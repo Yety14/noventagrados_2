@@ -1,6 +1,6 @@
 /**
- * @author Víctor Vidal Vivanco
- * @author Guillermo López de Arechavaleta Zapatero
+ * @author <a href="vvv1005@alu.ubu.es">Víctor Vidal Vivanco</a>
+ * @author <a href="glz1001@alu.ubu.es">Guillermo López de Arechavaleta Zapatero</a>
  * 
  *         Implementa la lógica de negocio del juego, coordinando objetos 
  *         para gestionar jugadas legales, movimientos, expulsiones del tablero, 

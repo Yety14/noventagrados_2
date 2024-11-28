@@ -5,8 +5,8 @@ import noventagrados.util.TipoPieza;
 /**
  * Enumeración que representa los tipos de piezas en el juego.
  *
- * @author Víctor Vidal Vivanco
- * @author Guillermo López de Arechavaleta Zapatero
+ * @author <a href="vvv1005@alu.ubu.es">Víctor Vidal Vivanco</a>
+ * @author <a href="glz1001@alu.ubu.es">Guillermo López de Arechavaleta Zapatero</a>
  * @version 1.0
  * @since 1.0
  */

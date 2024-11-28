@@ -1,6 +1,6 @@
 /**
- * @author Víctor Vidal Vivanco
- * @author Guillermo López de Arechavaleta Zapatero
+ * @author <a href="vvv1005@alu.ubu.es">Víctor Vidal Vivanco</a>
+ * @author <a href="glz1001@alu.ubu.es">Guillermo López de Arechavaleta Zapatero</a>
  * 
  *         Modela los elementos esenciales del juego, incluyendo celdas, piezas, 
  *         jugadas y el tablero, proporcionando métodos para gestionar su estado 
