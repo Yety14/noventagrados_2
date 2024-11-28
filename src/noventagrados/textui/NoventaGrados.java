@@ -96,9 +96,9 @@ public class NoventaGrados {
 	}
 
 	/**
-	 * Ejecuta la lógica principal del juego en modo texto, gestionando las jugadas,
-	 * validaciones y cambios de turno hasta que la partida finaliza. Permite
-	 * deshacer jugadas y muestra el resultado al final del juego.
+	 * Ejecuta la lógica principal del juego, gestionando las jugadas, validaciones
+	 * y cambios de turno hasta que la partida finaliza. Permite deshacer jugadas y
+	 * muestra el resultado al final del juego.
 	 * 
 	 * @param partidaFinalizada bandera que indica si la partida ha terminado o no.
 	 */

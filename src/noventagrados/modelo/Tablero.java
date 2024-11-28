@@ -115,9 +115,9 @@ public class Tablero {
 	}
 
 	/**
-	 * Devuelve un array con todas las celdas del tablero.
+	 * Devuelve una lista con todas las celdas del tablero.
 	 * 
-	 * @return un array de Celda con clones de todas las celdas
+	 * @return una lista de Celdas con clones de todas las celdas
 	 */
 	public List<Celda> consultarCeldas() {
 		List<Celda> celdasList = new ArrayList<>(FILAS * COLUMNAS);
