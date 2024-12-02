@@ -177,6 +177,10 @@ public class NoventaGrados {
 
 		if (args.length == 0) {
 			configuracion = "jugadas";
+		} else if (args.length > 1) { // en el pdf no se especificaba nada en el caso de que se pasase más de
+										// un argumento asi q nosotros hemos obtado por lanzar el error del  
+										// modo seleccionado
+			mostrarErrorSeleccionandoModo();
 		} else {
 			if (args[0].equals("arbitros")) {
 				configuracion = "arbitros";

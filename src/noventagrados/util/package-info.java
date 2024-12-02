@@ -11,7 +11,7 @@
  * @author <a href="glz1001@alu.ubu.es">Guillermo López de Arechavaleta Zapatero</a>  
  * @since 1.0
  * @see noventagrados.util.Color
- * @see noventagrados.util.Cooordenada
+ * @see noventagrados.util.Coordenada
  * @see noventagrados.util.Sentido
  * @see noventagrados.util.TipoPieza
  * 

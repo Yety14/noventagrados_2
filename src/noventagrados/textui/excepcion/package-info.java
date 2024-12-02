@@ -12,7 +12,7 @@
  * @author <a href="vvv1005@alu.ubu.es">Víctor Vidal Vivanco</a>
  * @author <a href="glz1001@alu.ubu.es">Guillermo López de Arechavaleta Zapatero</a>  
  * @since 1.0
- * @see noventagrados.textui.exception.OpcionNoDisponibleException
+ * @see noventagrados.textui.excepcion.OpcionNoDisponibleException
  * 
  */
 package noventagrados.textui.excepcion;
